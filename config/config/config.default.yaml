@@ -1,0 +1,21 @@
+# ts的连接信息
+# ts3服务器地址
+HOST: 127.0.0.1
+#ts3服务器协议 RAW 或是 SSH 一般不用改
+PROTOCOL: RAW
+#ts3服务器查询端口
+QUERY_PORT: 10011
+#ts3服务器语音端口
+SERVER_PORT: 9987
+#ts3服务器admin账号 创建时出现的那个
+USERNAME: serveradmin
+#ts3服务器admin密码  创建时出现的那个
+PASSWORD: abc
+#连接到ts3服务器使用的用户名 -- 不会显式出现在ts3服务器中可通过查询api查看到
+NICKNAME: "TESTBOT"
+#通知用户进出ts3的群号 可多个
+NOTICE_GROUP_NO:
+  - 233333
+
+#断线重连次数
+RECONNECT_TIMER: 5

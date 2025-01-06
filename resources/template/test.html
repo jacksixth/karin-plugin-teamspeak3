@@ -4,18 +4,34 @@
 <head>
   <style>
     body {
-      width: 1067px;
-      height: 600px;
-      margin: 0;
+      width: 1000px;
+      overflow: hidden;
+    }
+
+    .main {
+      width: 100%;
+      height: auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    ul {
+      text-align: center;
+      list-style: none;
       padding: 0;
-      background-size: cover;
     }
   </style>
 </head>
 
 <body>
-  <!-- 本地图片 -->
-  <img src="{{@file}}" alt="启程宣发">
+  <div class="main">
+    <h1>test render</h1>
+    <ul>
+      {{@list}}
+    </ul>
+  </div>
 </body>
 
 </html>

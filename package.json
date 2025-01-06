@@ -44,5 +44,8 @@
       "lib/**/*",
       "@karinjs/**/*"
     ]
+  },
+  "dependencies": {
+    "ts3-nodejs-library": "^3.5.1"
   }
 }
