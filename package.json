@@ -1,16 +1,16 @@
 {
-  "name": "karin-plugin-template",
+  "name": "karin-plugin-teamspeak3",
   "version": "0.0.1",
-  "description": "karin plugin template",
-  "homepage": "https://github.com/KarinJS/karin-plugin-template",
+  "description": "karin plugin teamspeak3",
+  "homepage": "https://github.com/jacksixth/karin-plugin-teamspeak3",
   "bugs": {
-    "url": "https://github.com/KarinJS/karin-plugin-template/issues"
+    "url": "https://github.com/jacksixth/karin-plugin-teamspeak3/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KarinJS/karin-plugin-template.git"
+    "url": "git+https://github.com/jacksixth/karin-plugin-teamspeak3.git"
   },
-  "author": "Lain",
+  "author": "jack",
   "type": "module",
   "main": "lib/index.js",
   "scripts": {
