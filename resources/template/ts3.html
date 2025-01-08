@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      overflow: hidden;
+      width: 720px;
+      height: 720px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .main {
+      background: #ffffff;
+      min-width: 40%;
+      width: max-content;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 5%;
+      padding: 12px;
+      padding-top: 0;
+      max-height: 720px;
+      transform: translate(0, 50%);
+    }
+
+    h1 {
+      text-align: center;
+      color: #673AB7;
+      margin-bottom: 12px;
+    }
+
+    .tips {
+      color: #9E9E9E;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .count {
+      text-align: center;
+    }
+
+    .main>ul {
+      padding: 0;
+      width: 40%;
+      margin: auto;
+      color: #FF9800;
+    }
+
+    li {
+      list-style-type: circle;
+      margin-left: 10%;
+      color: #3F51B5;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body style="background-image: url('{{@bg}}');">
+  <div class="main">
+    {{@render}}
+  </div>
+</body>
+
+</html>

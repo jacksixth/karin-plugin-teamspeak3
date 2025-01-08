@@ -1,3 +1,5 @@
+# 当前机器人的QQ号
+BOT_SELF_ID: 1111111
 # ts的连接信息
 # ts3服务器地址
 HOST: 127.0.0.1
@@ -19,3 +21,10 @@ NOTICE_GROUP_NO:
 
 #断线重连次数
 RECONNECT_TIMER: 5
+
+#不提醒的昵称列表 可多个 默认不提醒当前加入ts的机器人
+DIS_NOTIFY_NAME_LIST:
+  - TESTBOT
+
+#展示的服务器名
+SERVER_NAME: xxxxxxx
