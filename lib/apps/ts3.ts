@@ -78,9 +78,23 @@ class ts3 {
     if (!this.teamspeak) {
       return
     }
+    const usePuppeteer = config().USE_PUPPETEER || false
+
     const renderList = [] as string[]
-    renderList.push(`<h1>${config().SERVER_NAME || "TeamSpeak服务器"}</h1>`)
-    renderList.push(`<div class="tips">仅展示有人的频道</div>`)
+    renderList.push(
+      usePuppeteer
+        ? `<h1>${config().SERVER_NAME || "TeamSpeak服务器"}</h1>`
+        : `====${config().SERVER_NAME || "TeamSpeak服务器"}====`
+    )
+    renderList.push(
+      usePuppeteer
+        ? `<div class="tips">仅展示有人的频道</div>`
+        : `仅展示有人的频道 `
+    )
+    if (!usePuppeteer) {
+      //不渲染成图片就使用=====分割频道
+      renderList.push(`======`)
+    }
     const channelList = await this.teamspeak.channelList() //所有频道
     let count = 0
     for (let index = 0; index < channelList.length; index++) {
@@ -92,7 +106,9 @@ class ts3 {
       )
       count += clients.length
       if (clients.length == 0) continue
-      renderList.push(`<ul>${channel.name}`)
+      renderList.push(
+        usePuppeteer ? `<ul>${channel.name}` : ` ${channel.name} `
+      )
       for (let index = 0; index < clients.length; index++) {
         const client = clients[index]
         const connectTimeSec = moment().diff(
@@ -102,12 +118,27 @@ class ts3 {
         let connectTime = `(${Math.floor(connectTimeSec / 60)}:${Math.floor(
           connectTimeSec % 60
         )}) `
-        renderList.push(`<li>${client.nickname} ${connectTime}</li>`)
+        renderList.push(
+          usePuppeteer
+            ? `<li>${client.nickname} ${connectTime}</li>`
+            : `- ${client.nickname} ${connectTime}`
+        )
       }
-      renderList.push("</ul>")
+      if (!usePuppeteer) {
+        //不渲染成图片就使用=====分割频道
+        renderList.push(`======`)
+      } else {
+        renderList.push("</ul>")
+      }
     }
-    renderList.splice(2, 0, `<div class="count">当前频道内共有${count}人</div>`)
-    return renderList.join("")
+    renderList.splice(
+      2,
+      0,
+      usePuppeteer
+        ? `<div class="count">当前频道内共有${count}人</div>`
+        : `当前频道内共有${count}人`
+    )
+    return usePuppeteer ? renderList.join("") : renderList.join("\n")
   }
 }
 

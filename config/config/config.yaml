@@ -28,3 +28,6 @@ DIS_NOTIFY_NAME_LIST:
 
 #展示的服务器名
 SERVER_NAME: xxxxxxx
+
+#是否使用puppeteer插件渲染人数列表
+USE_PUPPETEER: true
