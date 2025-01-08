@@ -1,20 +1,12 @@
-# karin 模板仓库
 
+# karin-plugin-template
+karin 下的 teamspeak3 插件，使用ts开发。
+在用户进入离开ts服务器时在群里发送用户进出提示
+也会响应QQ群或私聊的 `人数` 命令发送当前服务器内有人在的频道的人数和进入时长
 
-## 克隆仓库
-
-> 需要注意 请先安装`karin`哦~
-
-打开[模板仓库](https://github.com/KarinJS/karin-plugin-template)
-
-点击`Use this template`或`使用此模板`按钮，创建自己的仓库。
-![202404121412587](https://cdn.jsdelivr.net/gh/Zyy955/imgs/img/202404121412587.png)
-
-填写仓库名称，描述，选择是否公开。
-![202404121414580](https://cdn.jsdelivr.net/gh/Zyy955/imgs/img/202404121414580.png)
+## 拉取
 
 ```bash
-# 请改成你自己的仓库 ！！！请单独一个文件夹 不需要放到plugins中了
 git clone https://github.com/karinjs/karin-plugin-template.git
 ```
 
@@ -24,14 +16,11 @@ git clone https://github.com/karinjs/karin-plugin-template.git
 pnpm i
 ```
 
-## 初始化
 
-> `pnpm run init` 会自动生成一个`.pnpmfile.cjs`文件，请删除这个文件
+## 运行karin  
 
-```bash
-pnpm run init
-```
+回到项目根目录下 运行 `npx karin ts` 生成配置文件
 
-```bash
-pnpm dev
-```
+## 修改配置文件 填写ts服务器相关信息
+
+修改位于 `/@karinjs/karin-plugin-teamspeak3/config` 文件夹下的 `config.yaml` 文件
