@@ -9,7 +9,13 @@ export const image = karin.command(
   /^#?人数$/,
   async (e) => {
     try {
-      const usePuppeteer = config().USE_PUPPETEER || false
+      let usePuppeteer = config().USE_PUPPETEER || false
+      try {
+        //尝试调用渲染器，调用失败则表示未连接
+        render.App()
+      } catch (error) {
+        usePuppeteer = false
+      }
       if (usePuppeteer) {
         const filePath = common.absPath(dirPath + "/resources")
         const bg = filePath + "/image/bg.png"

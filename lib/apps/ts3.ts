@@ -1,6 +1,6 @@
 import { QueryProtocol, TeamSpeak } from "ts3-nodejs-library"
 import { config } from "../utils/index.js"
-import karin, { logger, segment } from "node-karin"
+import karin, { logger, render, segment } from "node-karin"
 import moment from "node-karin/moment"
 const disNotifyNameList = [config().NICKNAME, ...config()?.DIS_NOTIFY_NAME_LIST]
 class ts3 {
@@ -78,8 +78,13 @@ class ts3 {
     if (!this.teamspeak) {
       return
     }
-    const usePuppeteer = config().USE_PUPPETEER || false
-
+    let usePuppeteer = config().USE_PUPPETEER || false
+    try {
+      //尝试调用渲染器，调用失败则表示未连接渲染器
+      render.App()
+    } catch (error) {
+      usePuppeteer = false
+    }
     const renderList = [] as string[]
     renderList.push(
       usePuppeteer
