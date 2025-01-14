@@ -1,4 +1,4 @@
-# karin-plugin-template
+# karin-plugin-teamspeak3
 
 karin 下的 teamspeak3 插件，使用ts开发。
 需要搭配 [karin](https://karin.fun/) 使用。karin版本: 0.12.25-beta.pr.206.1-1735239377
