@@ -4,7 +4,7 @@
     "target": "ES2022",
     "esModuleInterop": true,
     "moduleResolution": "Bundler",
-    "outDir": "../../plugins/teamspeak/lib",
+    "outDir": "./lib",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
