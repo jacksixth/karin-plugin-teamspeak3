@@ -15,7 +15,9 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "pub": "npm publish --access public"
+    "pub": "npm publish --access public",
+    "clean": "npm lib/cli/pr.js clean",
+    "pr": "node lib/cli/pr.js"
   },
   "devDependencies": {
     "@types/node": "^20.17.8",
