@@ -1,0 +1,19 @@
+{
+  "BOT_SELF_ID": 1111111,
+  "HOST": "127.0.0.1",
+  "PROTOCOL": "RAW",
+  "QUERY_PORT": 10011,
+  "SERVER_PORT": 9987,
+  "USERNAME": "serveradmin",
+  "PASSWORD": "abc",
+  "NICKNAME": "TESTBOT",
+  "NOTICE_GROUP_NO": [
+    233333
+  ],
+  "RECONNECT_TIMER": 5,
+  "DIS_NOTIFY_NAME_LIST": [
+    "TESTBOT"
+  ],
+  "SERVER_NAME": "xxxxxxx",
+  "USE_PUPPETEER": true
+}

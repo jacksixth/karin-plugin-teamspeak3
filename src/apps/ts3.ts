@@ -55,7 +55,7 @@ class ts3 {
         const msg = segment.text(e.client.nickname + "进入ts")
         const qq = config().BOT_SELF_ID
         config().NOTICE_GROUP_NO.forEach((groupNo) => {
-          const contact = karin.contact("group", groupNo)
+          const contact = karin.contact("group", groupNo + "")
           karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
         })
       }
@@ -66,7 +66,7 @@ class ts3 {
           logger.info(e.client.nickname + "离开ts")
           const msg = segment.text(e.client.nickname + "离开ts")
           config().NOTICE_GROUP_NO.forEach((groupNo) => {
-            const contact = karin.contact("group", groupNo)
+            const contact = karin.contact("group", groupNo + "")
             karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
           })
         }
