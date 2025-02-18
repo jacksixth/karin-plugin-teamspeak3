@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch: # 允许手动触发
 
 jobs:
   build:
@@ -25,84 +25,67 @@ jobs:
         with:
           version: 9.7.1
 
-      - name: 设置 pnpm 缓存
-        uses: actions/cache@v3
-        with:
-          path: |
-            .pnpm-store
-            node_modules
-            pnpm-lock.yaml
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
       - name: 安装依赖
         run: |
           pnpm install
-          pnpm add --save node-karin@latest
+
+      - name: 删除 pnpm-lock.yaml
+        run: rm -rf pnpm-lock.yaml
 
       - name: 编译
         run: pnpm build
 
-      - name: 检查并创建 build 分支
+      - name: 设置时区
         run: |
-          git fetch origin
-          if ! git branch --list build; then
-            git checkout --orphan build
-            git reset --hard
-            git clean -fdx
-            git commit --allow-empty -m "Initial empty commit on build branch"
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} build
+          sudo timedatectl set-timezone Asia/Shanghai
+
+      - name: 设置git用户名和邮箱
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: 删除开发依赖
+        run: npm run pr clean
+
+      - name: 删除文件
+        run: |
+          rm -rf src .github tsconfig.json eslint.config.mjs
+
+      - name: 推送build分支
+        run: |
+          sed -i '19d' .gitignore
+          git checkout -b build || git checkout build
+          git add .
+          if [ -z "$(git diff --cached --name-only)" ]; then
+            echo "No changes detected"
+            exit 0
           else
-            git checkout build
+            git commit -m "chore(build): ${{ github.event.head_commit.message }}"
           fi
-          
+          git push origin build --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 复制编译后的文件到 build 分支
+      - name: 打包
         run: |
-          rm -rf lib resources
-          cp -r ./lib ./resources .
+          zip -r build.zip lib package.json README.md LICENSE CHANGELOG.md config resources
 
-      - name: 从main分支复制文件到build分支
-        run: |
-          git checkout main -- package.json CHANGELOG.md README.md config resources LICENSE
-
-      - name: 删除依赖文件夹 node_modules
-        run: rm -rf node_modules
-
-      - name: 将文件整理到 karin-plugin-teamspeak 文件夹
-        run: |
-          mkdir -p karin-plugin-teamspeak
-          find . -path "./.git" -prune -o -type f -print | while read file; do
-            mkdir -p "karin-plugin-teamspeak/$(dirname "$file")"
-            cp "$file" "karin-plugin-teamspeak/$file"
-          done
-
-      - name: 创建 build.zip
-        run: |
-          zip -r build.zip karin-plugin-teamspeak
-
-      - name: 上传构建产物
+      - name: 上传 build.zip
         uses: actions/upload-artifact@v4
         with:
           name: build-zip
           path: build.zip
 
-      - name: 提交更改到 build 分支
-        run: |
-          git add .
-          git commit -m "chore(build): 自动构建"
-          git push --set-upstream origin build
-
-      - name: 更新版本号并发布到 npm
-        uses: googleapis/release-please-action@v4
+      - name: 更新版本号
+        uses: google-github-actions/release-please-action@v3
         id: release_please
         with:
           release-type: node
+          package-name: "karin-plugin-teamspeak"
 
       - name: 发布到 npm
-        if: ${{ steps.release_please.outputs.release_created }}
         run: npm run pub
+        if: ${{ steps.release_please.outputs.release_created }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
