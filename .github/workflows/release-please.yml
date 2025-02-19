@@ -92,12 +92,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 上传 release
-        if: startsWith(github.ref, 'refs/tags/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: ${{ github.ref }}
-        run: |
-            # 提取标签名称
-            TAG_NAME=${TAG_NAME#refs/tags/}
-            # 使用标签名称上传 release
-            gh release upload "$TAG_NAME" build.zip
+        run: gh release upload ${{ github.ref_name }} build.zip
