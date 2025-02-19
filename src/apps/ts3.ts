@@ -15,7 +15,7 @@ class ts3 {
       await this.teamspeak.quit()
       this.teamspeak = undefined
     }
-    const _teamspeak = await TeamSpeak.connect({
+    const _teamspeak = new TeamSpeak({
       host: TS.HOST,
       protocol: QueryProtocol[TS.PROTOCOL],
       queryport: TS.QUERY_PORT,
@@ -23,58 +23,62 @@ class ts3 {
       username: TS.USERNAME,
       password: TS.PASSWORD,
       nickname: TS.NICKNAME,
-    }).catch((e) => {
-      logger.info("ts3连接失败", e)
-      return
     })
-    if (_teamspeak) {
-      _teamspeak.on("ready", async () => {
-        logger.info("ts3连接成功")
-        if (!this.teamspeak) {
-          this.teamspeak = _teamspeak
-        }
-      })
-      _teamspeak.on("close", (e) => {
-        logger.error("ts3连接断开", e)
-        if (this.teamspeak) {
-          logger.info("重连中...")
-          this.teamspeak.reconnect(TS.RECONNECT_TIMER, 10000).catch((e) => {
+    _teamspeak.on("ready", async () => {
+      logger.info("ts3连接成功")
+      this.teamspeak = _teamspeak
+    })
+    _teamspeak.on("close", (e) => {
+      logger.error("ts3连接断开", e)
+      if (this.teamspeak) {
+        logger.info("重连中...")
+        this.teamspeak
+          .reconnect(TS.RECONNECT_TIMER, 1000)
+          .catch((e) => {
             logger.error("连接TS3失败", e)
           })
-        }
-      })
-      _teamspeak.on("error", (err) => {
-        logger.error("ts3连接出错", err)
-        if (this.teamspeak) {
-          logger.info("重连中...")
-          this.teamspeak.reconnect(TS.RECONNECT_TIMER, 10000).catch((e) => {
+          .then(() => {
+            logger.info("重连成功")
+          })
+      }
+    })
+    _teamspeak.on("error", (err) => {
+      logger.error("ts3连接出错", err)
+      if (this.teamspeak) {
+        logger.info("重连中...")
+        this.teamspeak
+          .reconnect(TS.RECONNECT_TIMER, 1000)
+          .catch((e) => {
             logger.error("连接TS3失败", e)
           })
-        }
-      })
-      _teamspeak.on("clientconnect", (e) => {
+          .then(() => {
+            logger.info("重连成功")
+          })
+      }
+    })
+    _teamspeak.on("clientconnect", (e) => {
+      if (!disNotifyNameList.includes(e.client.nickname)) {
+        logger.info(e.client.nickname + "进入ts")
+        const msg = segment.text(e.client.nickname + "进入ts")
+        const qq = config().BOT_SELF_ID
+        config().NOTICE_GROUP_NO.forEach((groupNo) => {
+          const contact = karin.contact("group", groupNo + "")
+          karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
+        })
+      }
+    })
+    _teamspeak.on("clientdisconnect", (e) => {
+      if (e.client) {
         if (!disNotifyNameList.includes(e.client.nickname)) {
-          logger.info(e.client.nickname + "进入ts")
-          const msg = segment.text(e.client.nickname + "进入ts")
+          logger.info(e.client.nickname + "离开ts")
+          const msg = segment.text(e.client.nickname + "离开ts")
           config().NOTICE_GROUP_NO.forEach((groupNo) => {
             const contact = karin.contact("group", groupNo + "")
             karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
           })
         }
-      })
-      _teamspeak.on("clientdisconnect", (e) => {
-        if (e.client) {
-          if (!disNotifyNameList.includes(e.client.nickname)) {
-            logger.info(e.client.nickname + "离开ts")
-            const msg = segment.text(e.client.nickname + "离开ts")
-            config().NOTICE_GROUP_NO.forEach((groupNo) => {
-              const contact = karin.contact("group", groupNo + "")
-              karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
-            })
-          }
-        }
-      })
-    }
+      }
+    })
   }
   //获取ts3服务器的所有对应频道的人
   getAllChannelList = async () => {
