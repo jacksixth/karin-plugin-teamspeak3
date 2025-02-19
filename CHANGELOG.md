@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.1.0...v1.2.0) (2025-02-19)
+
+
+### Features
+
+* 添加 web 配置文件 ([4576244](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/4576244a6d63fbd9b3425e1b863c67909c366fe6))
+
 ## [1.1.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.0.1...v1.1.0) (2025-02-19)
 
 
