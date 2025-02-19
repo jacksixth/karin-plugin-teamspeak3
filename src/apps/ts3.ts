@@ -2,14 +2,20 @@ import { QueryProtocol, TeamSpeak } from "ts3-nodejs-library"
 import { config } from "../utils/index.js"
 import karin, { logger, render, segment } from "node-karin"
 import moment from "node-karin/moment"
+logger.info("初始化ts3插件")
 const disNotifyNameList = [config().NICKNAME, ...config()?.DIS_NOTIFY_NAME_LIST]
 class ts3 {
   teamspeak: undefined | TeamSpeak
   connectTimer = 0
+  //初始化 如果已经有连接了就关闭连接重新连接
   init = async () => {
-    logger.info("初始化ts3插件")
     const TS = config()
-    const _teamspeak = new TeamSpeak({
+    logger.info("开始连接ts3服务器...")
+    if (this.teamspeak) {
+      await this.teamspeak.quit()
+      this.teamspeak = undefined
+    }
+    const _teamspeak = await TeamSpeak.connect({
       host: TS.HOST,
       protocol: QueryProtocol[TS.PROTOCOL],
       queryport: TS.QUERY_PORT,
@@ -17,61 +23,58 @@ class ts3 {
       username: TS.USERNAME,
       password: TS.PASSWORD,
       nickname: TS.NICKNAME,
+    }).catch((e) => {
+      logger.info("ts3连接失败", e)
+      return
     })
-    _teamspeak.on("ready", async () => {
-      logger.info("ts3连接成功")
-      if (!this.teamspeak) {
-        this.teamspeak = _teamspeak
-        this.getAllChannelList()
-      }
-    })
-    _teamspeak.on("close", (e) => {
-      logger.error("ts3连接断开", e)
-      if (this.connectTimer < TS.RECONNECT_TIMER) {
-        this.connectTimer++
+    if (_teamspeak) {
+      _teamspeak.on("ready", async () => {
+        logger.info("ts3连接成功")
+        if (!this.teamspeak) {
+          this.teamspeak = _teamspeak
+        }
+      })
+      _teamspeak.on("close", (e) => {
+        logger.error("ts3连接断开", e)
         if (this.teamspeak) {
           logger.info("重连中...")
-          this.teamspeak.reconnect().catch((e) => {
+          this.teamspeak.reconnect(TS.RECONNECT_TIMER, 10000).catch((e) => {
             logger.error("连接TS3失败", e)
           })
         }
-      }
-    })
-    _teamspeak.on("error", (err) => {
-      logger.error("ts3连接出错", err)
-      if (this.connectTimer < TS.RECONNECT_TIMER) {
-        this.connectTimer++
+      })
+      _teamspeak.on("error", (err) => {
+        logger.error("ts3连接出错", err)
         if (this.teamspeak) {
           logger.info("重连中...")
-          this.teamspeak.reconnect().catch((e) => {
+          this.teamspeak.reconnect(TS.RECONNECT_TIMER, 10000).catch((e) => {
             logger.error("连接TS3失败", e)
           })
         }
-      }
-    })
-    _teamspeak.on("clientconnect", (e) => {
-      if (!disNotifyNameList.includes(e.client.nickname)) {
-        logger.info(e.client.nickname + "进入ts")
-        const msg = segment.text(e.client.nickname + "进入ts")
-        const qq = config().BOT_SELF_ID
-        config().NOTICE_GROUP_NO.forEach((groupNo) => {
-          const contact = karin.contact("group", groupNo + "")
-          karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
-        })
-      }
-    })
-    _teamspeak.on("clientdisconnect", (e) => {
-      if (e.client) {
+      })
+      _teamspeak.on("clientconnect", (e) => {
         if (!disNotifyNameList.includes(e.client.nickname)) {
-          logger.info(e.client.nickname + "离开ts")
-          const msg = segment.text(e.client.nickname + "离开ts")
+          logger.info(e.client.nickname + "进入ts")
+          const msg = segment.text(e.client.nickname + "进入ts")
           config().NOTICE_GROUP_NO.forEach((groupNo) => {
             const contact = karin.contact("group", groupNo + "")
             karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
           })
         }
-      }
-    })
+      })
+      _teamspeak.on("clientdisconnect", (e) => {
+        if (e.client) {
+          if (!disNotifyNameList.includes(e.client.nickname)) {
+            logger.info(e.client.nickname + "离开ts")
+            const msg = segment.text(e.client.nickname + "离开ts")
+            config().NOTICE_GROUP_NO.forEach((groupNo) => {
+              const contact = karin.contact("group", groupNo + "")
+              karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
+            })
+          }
+        }
+      })
+    }
   }
   //获取ts3服务器的所有对应频道的人
   getAllChannelList = async () => {

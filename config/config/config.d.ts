@@ -10,7 +10,7 @@ export interface Config {
   PASSWORD: string //ts3服务器admin密码  创建时出现的那个
   NICKNAME: string //连接到ts3服务器使用的用户名 -- 不会显式出现在ts3服务器中可通过查询api查看到
   NOTICE_GROUP_NO: number[] //通知用户进出ts3的群号 可多个
-  RECONNECT_TIMER: number //断线重连次数
+  RECONNECT_TIMER: number //断线重连次数 -1表示将不断尝试
   DIS_NOTIFY_NAME_LIST: string[] //不提醒的昵称列表 可多个 默认不提醒当前加入ts的机器人
   SERVER_NAME: string //展示的服务器名
   USE_PUPPETEER: boolean //是否使用puppeteer插件渲染人数列表

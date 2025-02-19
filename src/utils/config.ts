@@ -17,7 +17,7 @@ const defConfig = `${defDir}/config`
 /**
  * @description 初始化配置文件
  */
-copyConfigSync(defConfig, dirConfig, [".json "])
+copyConfigSync(defConfig, dirConfig, [".json"])
 
 /**
  * @description 配置文件
