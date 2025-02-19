@@ -16,6 +16,7 @@ lerna-debug.log*
 .vscode/
 
 # 临时文件
+/logs/
 /temp/
 
 # 依赖
