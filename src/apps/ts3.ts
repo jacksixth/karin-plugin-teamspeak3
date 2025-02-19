@@ -152,6 +152,18 @@ class ts3 {
     )
     return usePuppeteer ? renderList.join("") : renderList.join("\n")
   }
+  //关闭连接
+  quitTs = async () => {
+    if (this.teamspeak) {
+      this.teamspeak.quit()
+    }
+  }
+  //重新连接
+  reconnectTs = async () => {
+    if (this.teamspeak) {
+      this.teamspeak.reconnect(config().RECONNECT_TIMER, 1000)
+    }
+  }
 }
 
 const teamspeak3 = new ts3()
