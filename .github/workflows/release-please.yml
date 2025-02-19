@@ -85,12 +85,12 @@ jobs:
 
       - name: 发布到 npm
         run: npm run pub
-        if: ${{ steps.release_please.outputs.release_created }}
+        if: startsWith(github.ref, 'refs/tags/v')
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 上传 release
-        if: ${{ steps.release_please.outputs.release_created }}
+        if: startsWith(github.ref, 'refs/tags/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{ steps.release_please.outputs.tag_name }} build.zip
