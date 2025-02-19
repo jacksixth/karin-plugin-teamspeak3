@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.0.1...v1.1.0) (2025-02-19)
+
+
+### Features
+
+* **ts3:** 添加关闭连接和重新连接方法 ([eaf792f](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/eaf792f7274f4db6bab0fbf002d50798893d114a))
+
 ## [1.0.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.0.0...v1.0.1) (2025-02-19)
 
 
