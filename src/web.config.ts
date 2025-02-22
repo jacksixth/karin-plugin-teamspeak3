@@ -9,15 +9,15 @@ export default {
   /** 动态渲染的组件 */
   components: () => [
     components.input.string("HOST", {
-      label: "teamspeak 服务器地址(不带端口)",
+      label: "teamspeak 服务器地址或域名(不带端口)",
       defaultValue: defConfig.HOST,
       variant: "underlined",
-      placeholder: "请输入服务器地址",
+      placeholder: "请输入服务器地址或域名",
       rules: [
         {
           regex:
-            /^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/,
-          error: "请输入正确的IP地址",
+            /^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$|^([0-9a-zA-Z-]{1,}\.)+([a-zA-Z]{2,})$/,
+          error: "请输入正确的IP地址或域名",
         },
       ],
     }),
