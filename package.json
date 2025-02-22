@@ -1,6 +1,6 @@
 {
   "name": "karin-plugin-teamspeak",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "karin 的 teamspeak 插件",
   "homepage": "https://github.com/jacksixth/karin-plugin-teamspeak3",
   "bugs": {

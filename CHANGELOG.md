@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.4.0...v1.4.1) (2025-02-22)
+
+
+### Bug Fixes
+
+* **apps:** 注释掉渲染器连接检测代码-取消使用渲染器 ([ea6ffca](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/ea6ffca8ca1c9105e2769f09c4beca478bed1962))
+
 ## [1.4.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.3.4...v1.4.0) (2025-02-22)
 
 
