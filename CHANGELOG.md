@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.3](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.3.2...v1.3.3) (2025-02-22)
+
+
+### Bug Fixes
+
+* **web.config:** 更新 teamspeak 服务器地址输入支持域名 ([10b66cd](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/10b66cd31e83326b4621c061d597dec6b8708c10))
+
 ## [1.3.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.3.1...v1.3.2) (2025-02-22)
 
 
