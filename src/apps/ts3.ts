@@ -88,12 +88,12 @@ class ts3 {
       return
     }
     //默认尝试使用渲染器，调用失败则表示未连接渲染器
-    let usePuppeteer = true
-    try {
-      render.App()
-    } catch (error) {
-      usePuppeteer = false
-    }
+    let usePuppeteer = false
+    // try {
+    //   render.App()
+    // } catch (error) {
+    //   usePuppeteer = false
+    // }
     const renderList = [] as string[]
     renderList.push(
       usePuppeteer

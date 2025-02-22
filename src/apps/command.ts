@@ -10,12 +10,12 @@ export const image = karin.command(
   async (e) => {
     try {
       //默认尝试使用渲染器，调用失败则表示未连接将使用文字形式发送服务器人数
-      let usePuppeteer = true
-      try {
-        render.App()
-      } catch (error) {
-        usePuppeteer = false
-      }
+      let usePuppeteer = false
+      // try {
+      //   render.App()
+      // } catch (error) {
+      //   usePuppeteer = false
+      // }
       if (usePuppeteer) {
         const filePath = common.absPath(dirPath + "/resources")
         const bg = filePath + "/image/bg.png"
