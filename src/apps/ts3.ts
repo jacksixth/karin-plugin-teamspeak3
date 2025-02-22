@@ -85,9 +85,9 @@ class ts3 {
     if (!this.teamspeak) {
       return
     }
-    let usePuppeteer = config().USE_PUPPETEER || false
+    //默认尝试使用渲染器，调用失败则表示未连接渲染器
+    let usePuppeteer = true
     try {
-      //尝试调用渲染器，调用失败则表示未连接渲染器
       render.App()
     } catch (error) {
       usePuppeteer = false

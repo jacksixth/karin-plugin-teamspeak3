@@ -9,9 +9,9 @@ export const image = karin.command(
   /^#?人数$/,
   async (e) => {
     try {
-      let usePuppeteer = config().USE_PUPPETEER || false
+      //默认尝试使用渲染器，调用失败则表示未连接将使用文字形式发送服务器人数
+      let usePuppeteer = true
       try {
-        //尝试调用渲染器，调用失败则表示未连接
         render.App()
       } catch (error) {
         usePuppeteer = false
@@ -63,7 +63,7 @@ export const image = karin.command(
     /** 插件触发是否打印触发日志 */
     log: true,
     /** 插件名称 */
-    name: "显示ts3内人数",
+    name: "显示ts服务器内人数",
     /** 谁可以触发这个插件 'all' | 'master' | 'admin' | 'group.owner' | 'group.admin' */
     permission: "all",
   }

@@ -8,8 +8,8 @@ import {
   requireFileSync,
 } from "node-karin"
 import { Config } from "../../config/config/config.d"
-const dir = `${basePath}/${basename}`
-const dirConfig = `${dir}/config`
+export const dir = `${basePath}/${basename}`
+export const dirConfig = `${dir}/config`
 
 const defDir = `${dirPath}/config`
 const defConfig = `${defDir}/config`

@@ -14,6 +14,5 @@
   "DIS_NOTIFY_NAME_LIST": [
     "TESTBOT"
   ],
-  "SERVER_NAME": "xxxxxxx",
-  "USE_PUPPETEER": true
+  "SERVER_NAME": "xxxxxxx"
 }

@@ -13,5 +13,4 @@ export interface Config {
   RECONNECT_TIMER: number //断线重连次数 -1表示将不断尝试
   DIS_NOTIFY_NAME_LIST: string[] //不提醒的昵称列表 可多个 默认不提醒当前加入ts的机器人
   SERVER_NAME: string //展示的服务器名
-  USE_PUPPETEER: boolean //是否使用puppeteer插件渲染人数列表
 }
