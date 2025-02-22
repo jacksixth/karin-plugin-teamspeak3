@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.3.1...v1.3.2) (2025-02-22)
+
+
+### Bug Fixes
+
+* **ts3:** 修复配置加载导致的引用错误 ([e3cb574](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e3cb5746c7886e9cb5edc58e07ac110539259de3))
+
 ## [1.3.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.3.0...v1.3.1) (2025-02-22)
 
 
