@@ -97,8 +97,8 @@ class ts3 {
     const renderList = [] as string[]
     renderList.push(
       usePuppeteer
-        ? `<h1>${config().SERVER_NAME || "TeamSpeak服务器"}</h1>`
-        : `====${config().SERVER_NAME || "TeamSpeak服务器"}====`
+        ? `<h1>${config().SERVER_NAME || config().HOST}</h1>`
+        : `====${config().SERVER_NAME || config().HOST}====`
     )
     renderList.push(
       usePuppeteer
@@ -167,7 +167,9 @@ class ts3 {
     }
   }
 }
-
 const teamspeak3 = new ts3()
-teamspeak3.init()
+setTimeout(() => {
+  //确保配置文件生成且正确保存
+  teamspeak3.init()
+}, 1000)
 export default teamspeak3

@@ -118,9 +118,8 @@ export default {
 
   /** 前端点击保存之后调用的方法 */
   save: (config: Config) => {
-    Object.assign(defConfig, config)
-    writeJsonSync(`${dirConfig}/config.json`, config)
     logger.info("保存的配置:", config)
+    writeJsonSync(`${dirConfig}/config.json`, config)
     // 在这里处理保存逻辑
     return {
       success: true,
