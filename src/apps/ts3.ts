@@ -3,13 +3,15 @@ import { config } from "../utils/index.js"
 import karin, { logger, render, segment } from "node-karin"
 import moment from "node-karin/moment"
 logger.info("初始化ts3插件")
-const disNotifyNameList = [config().NICKNAME, ...config()?.DIS_NOTIFY_NAME_LIST]
+let disNotifyNameList: string[] = []
 class ts3 {
   teamspeak: undefined | TeamSpeak
   connectTimer = 0
   //初始化 如果已经有连接了就关闭连接重新连接
   init = async () => {
     const TS = config()
+    //fix ReferenceError: Cannot access 'config' before initialization
+    disNotifyNameList = [TS.NICKNAME, ...TS.DIS_NOTIFY_NAME_LIST]
     logger.info("开始连接ts3服务器...")
     if (this.teamspeak) {
       await this.teamspeak.quit()
