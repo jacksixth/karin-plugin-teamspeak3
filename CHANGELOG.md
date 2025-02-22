@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.3.4...v1.4.0) (2025-02-22)
+
+
+### Features
+
+* **ts3:** 优化 TS3 服务器列表展示效果及配置流程 ([4cd4da8](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/4cd4da8dbfea92288ef82753418f5b056d67c5f9))
+
 ## [1.3.4](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.3.3...v1.3.4) (2025-02-22)
 
 
