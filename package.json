@@ -1,6 +1,6 @@
 {
   "name": "karin-plugin-teamspeak",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "description": "karin 的 teamspeak3 插件",
   "homepage": "https://github.com/jacksixth/karin-plugin-teamspeak3",
   "bugs": {
@@ -38,6 +38,8 @@
     "static": [
       "resources"
     ],
+    "web": "./lib/web.config.js",
+    "ts-web": "./src/web.config.ts",
     "files": [
       "config",
       "data",
