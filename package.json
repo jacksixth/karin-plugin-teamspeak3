@@ -1,7 +1,7 @@
 {
   "name": "karin-plugin-teamspeak",
   "version": "1.3.3",
-  "description": "karin 的 teamspeak3 插件",
+  "description": "karin 的 teamspeak 插件",
   "homepage": "https://github.com/jacksixth/karin-plugin-teamspeak3",
   "bugs": {
     "url": "https://github.com/jacksixth/karin-plugin-teamspeak3/issues"
@@ -10,6 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/jacksixth/karin-plugin-teamspeak3.git"
   },
+  "keywords": [
+    "karin-plugin",
+    "teamspeak",
+    "karin"
+  ],
+  "license": "GPL-3.0-only",
   "author": "jack",
   "type": "module",
   "main": "lib/index.js",
