@@ -8,6 +8,7 @@ import {
   requireFileSync,
 } from "node-karin"
 import { Config } from "../../config/config/config.d"
+import teamspeak3 from "@/apps/ts3"
 export const dir = `${basePath}/${basename}`
 export const dirConfig = `${dir}/config`
 
@@ -42,6 +43,7 @@ setTimeout(() => {
     watch(file, (old: Config, now: Config) => {
       logger.info("旧数据:", old)
       logger.info("新数据:", now)
+      teamspeak3.init()
     })
   )
 }, 2000)
