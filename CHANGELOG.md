@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.3.0...v1.3.1) (2025-02-22)
+
+
+### Bug Fixes
+
+* **utils/config:** 监测配置文件变化后自动重新初始化 teamspeak3 ([847f272](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/847f2725f9c18382ed8b21b295cf006357e4b55f))
+
 ## [1.3.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.2.0...v1.3.0) (2025-02-22)
 
 
