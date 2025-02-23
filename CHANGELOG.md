@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.0...v1.5.1) (2025-02-23)
+
+
+### Bug Fixes
+
+* **ts3:** 修复getAllUserList 仅返回一个频道人数的bug ([8609c7a](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/8609c7a23dca8983a1bddfb374ca9b79a0215bb4))
+
 ## [1.5.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.4.1...v1.5.0) (2025-02-23)
 
 
