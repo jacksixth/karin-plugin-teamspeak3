@@ -205,15 +205,15 @@ export const getAllUserList = async () => {
           moment.unix(c.lastconnected),
           "second"
         )
-        let connectTime = `(${Math.floor(connectTimeSec / 60)}:${Math.floor(
+        let connectTime = `${Math.floor(connectTimeSec / 60)}:${Math.floor(
           connectTimeSec % 60
-        )}) `
+        )}`
         return {
           nickName: c.nickname, //昵称
           lastconnected: moment
             .unix(c.lastconnected)
             .format("YYYY-MM-DD HH:mm:ss"), //上次连接进来的时间
-          connectTime, //已经连接的时间 - 单位秒
+          connectTime, //已经连接的时间 - 单位分:秒
         }
       })
     }
