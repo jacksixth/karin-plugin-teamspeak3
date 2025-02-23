@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.1...v1.5.2) (2025-02-23)
+
+
+### Bug Fixes
+
+* **ts3:** 优化 getLastConnectedTime 格式 ([9cdd0a9](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/9cdd0a953e2104a4387adb47bf33530eb9a3d0aa))
+
 ## [1.5.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.0...v1.5.1) (2025-02-23)
 
 
