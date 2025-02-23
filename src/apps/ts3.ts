@@ -1,8 +1,10 @@
 import { QueryProtocol, TeamSpeak } from "ts3-nodejs-library"
-import { config } from "../utils/index.js"
-import karin, { logger, render, segment } from "node-karin"
+import { config, dirPath } from "../utils/index.js"
+import karin, { logger, render, segment, app } from "node-karin"
 import moment from "node-karin/moment"
-logger.info("初始化ts3插件")
+import express from "node-karin/express"
+const loggerHex = logger.chalk.hex("#90CAF9")
+logger.info(loggerHex(" ===== ts3 ===== ") + "初始化ts3插件")
 let disNotifyNameList: string[] = []
 class ts3 {
   teamspeak: undefined | TeamSpeak
@@ -12,7 +14,7 @@ class ts3 {
     const TS = config()
     //fix ReferenceError: Cannot access 'config' before initialization
     disNotifyNameList = [TS.NICKNAME, ...TS.DIS_NOTIFY_NAME_LIST]
-    logger.info("开始连接ts3服务器...")
+    logger.info(loggerHex(" ===== ts3 ===== ") + "开始连接ts3服务器...")
     if (this.teamspeak) {
       await this.teamspeak.quit()
       this.teamspeak = undefined
@@ -27,43 +29,45 @@ class ts3 {
       nickname: TS.NICKNAME,
     })
     _teamspeak.on("ready", async () => {
-      logger.info("ts3连接成功")
+      logger.info(loggerHex(" ===== ts3 ===== ") + "ts3连接成功")
       this.teamspeak = _teamspeak
     })
     _teamspeak.on("close", (e) => {
-      logger.error("ts3连接断开", e)
+      logger.error(loggerHex(" ===== ts3 ===== ") + "ts3连接断开", e)
       if (this.teamspeak) {
-        logger.info("重连中...")
+        logger.info(loggerHex(" ===== ts3 ===== ") + "重连中...")
         this.teamspeak
           .reconnect(TS.RECONNECT_TIMER, 1000)
           .catch((e) => {
-            logger.error("连接TS3失败", e)
+            logger.error(loggerHex(" ===== ts3 ===== ") + "连接TS3失败", e)
           })
           .then(() => {
-            logger.info("重连成功")
+            logger.info(loggerHex(" ===== ts3 ===== ") + "重连成功")
           })
       }
     })
     _teamspeak.on("error", (err) => {
-      logger.error("ts3连接出错", err)
+      logger.error(loggerHex(" ===== ts3 ===== ") + "ts3连接出错", err)
       if (this.teamspeak) {
-        logger.info("重连中...")
+        logger.info(loggerHex(" ===== ts3 ===== ") + "重连中...")
         this.teamspeak
           .reconnect(TS.RECONNECT_TIMER, 1000)
           .catch((e) => {
-            logger.error("连接TS3失败", e)
+            logger.error(loggerHex(" ===== ts3 ===== ") + "连接TS3失败", e)
           })
           .then(() => {
-            logger.info("重连成功")
+            logger.info(loggerHex(" ===== ts3 ===== ") + "重连成功")
           })
       }
     })
     _teamspeak.on("clientconnect", (e) => {
       if (!disNotifyNameList.includes(e.client.nickname)) {
-        logger.info(e.client.nickname + "进入ts")
+        logger.info(
+          loggerHex(" ===== ts3 ===== ") + e.client.nickname + "进入ts"
+        )
         const msg = segment.text(e.client.nickname + "进入ts")
-        const qq = config().BOT_SELF_ID
-        config().NOTICE_GROUP_NO.forEach((groupNo) => {
+        const qq = TS.BOT_SELF_ID
+        TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
           karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
         })
@@ -72,9 +76,11 @@ class ts3 {
     _teamspeak.on("clientdisconnect", (e) => {
       if (e.client) {
         if (!disNotifyNameList.includes(e.client.nickname)) {
-          logger.info(e.client.nickname + "离开ts")
+          logger.info(
+            loggerHex(" ===== ts3 ===== ") + e.client.nickname + "离开ts"
+          )
           const msg = segment.text(e.client.nickname + "离开ts")
-          config().NOTICE_GROUP_NO.forEach((groupNo) => {
+          TS.NOTICE_GROUP_NO.forEach((groupNo) => {
             const contact = karin.contact("group", groupNo + "")
             karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
           })
@@ -82,7 +88,7 @@ class ts3 {
       }
     })
   }
-  //获取ts3服务器的所有对应频道的人
+  //获取ts3服务器的所有对应频道的人 -- 并组装成文字可直接发
   getAllChannelList = async () => {
     if (!this.teamspeak) {
       return
@@ -94,11 +100,12 @@ class ts3 {
     // } catch (error) {
     //   usePuppeteer = false
     // }
+    const TS = config()
     const renderList = [] as string[]
     renderList.push(
       usePuppeteer
-        ? `<h1>${config().SERVER_NAME || config().HOST}</h1>`
-        : `====${config().SERVER_NAME || config().HOST}====`
+        ? `<h1>${TS.SERVER_NAME || TS.HOST}</h1>`
+        : `====${TS.SERVER_NAME || TS.HOST}====`
     )
     renderList.push(
       usePuppeteer
@@ -172,4 +179,58 @@ setTimeout(() => {
   //确保配置文件生成且正确保存
   teamspeak3.init()
 }, 1000)
+
+//获取ts3服务器内所有频道内在线人数 -- 给接口用
+export const getAllUserList = async () => {
+  if (teamspeak3.teamspeak) {
+    let count = 0
+    const res = {} as {
+      [name: string]: Array<{
+        nickName: string
+        lastconnected: string
+        connectTime: string
+      }>
+    }
+    const channelList = await teamspeak3.teamspeak.channelList() //所有频道
+    for (let index = 0; index < channelList.length; index++) {
+      const channel = channelList[index] //频道
+      const allClient = await channel.getClients() //在当前频道的人
+      //排除不显示的人
+      const clients = allClient.filter(
+        (c) => !disNotifyNameList.includes(c.nickname)
+      )
+      count += clients.length
+      res[channel.name] = clients.map((c) => {
+        const connectTimeSec = moment().diff(
+          moment.unix(c.lastconnected),
+          "second"
+        )
+        let connectTime = `(${Math.floor(connectTimeSec / 60)}:${Math.floor(
+          connectTimeSec % 60
+        )}) `
+        return {
+          nickName: c.nickname, //昵称
+          lastconnected: moment
+            .unix(c.lastconnected)
+            .format("YYYY-MM-DD HH:mm:ss"), //上次连接进来的时间
+          connectTime, //已经连接的时间 - 单位秒
+        }
+      })
+      return {
+        res,
+        count,
+      }
+    }
+  } else {
+    return null
+  }
+}
+const router = express.Router()
+router.get("/getAllUserList", async (req, res) => {
+  const result = await getAllUserList()
+  res.send(result)
+})
+app.use("/ts3Api", router)
+app.use(express.static(dirPath + "/resources/static"))
+
 export default teamspeak3
