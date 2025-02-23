@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.4.1...v1.5.0) (2025-02-23)
+
+
+### Features
+
+* **ts3:** 优化日志输出并添加在线用户接口 ([6c63627](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/6c63627d43123d9dd3a51aa3fff6c08cecdbe864))
+
 ## [1.4.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.4.0...v1.4.1) (2025-02-22)
 
 
