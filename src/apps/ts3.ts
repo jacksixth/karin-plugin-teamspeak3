@@ -216,10 +216,10 @@ export const getAllUserList = async () => {
           connectTime, //已经连接的时间 - 单位秒
         }
       })
-      return {
-        res,
-        count,
-      }
+    }
+    return {
+      res,
+      count,
     }
   } else {
     return null
