@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.2...v1.5.3) (2025-02-24)
+
+
+### Bug Fixes
+
+* **ts3:** API 路由挂载地址更改和静态资源服务路径更改 ([45d5f89](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/45d5f899b8c8dc3c938f1045957e06f1faf90a13))
+
 ## [1.5.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.1...v1.5.2) (2025-02-23)
 
 
