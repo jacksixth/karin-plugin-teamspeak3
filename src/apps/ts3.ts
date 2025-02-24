@@ -10,11 +10,9 @@ class ts3 {
   teamspeak: undefined | TeamSpeak
   connectTimer = 0
   private isReConnecting = false
-  private reconnectAttempts = 0
   //初始化 如果已经有连接了就关闭连接重新连接
   init = async () => {
     const TS = config()
-    this.reconnectAttempts = 0
     this.isReConnecting = false
     disNotifyNameList = [TS.NICKNAME, ...TS.DIS_NOTIFY_NAME_LIST]
     logger.info(loggerHex(" ===== ts3 ===== ") + "开始连接ts3服务器...")
@@ -161,16 +159,10 @@ class ts3 {
     const TS = config()
     if (!this.teamspeak || this.isReConnecting) return
     this.isReConnecting = true
-    logger.info(
-      loggerHex(" ===== ts3 ===== ") +
-        "重连中... 尝试次数: " +
-        this.reconnectAttempts +
-        "次"
-    )
+    logger.info(loggerHex(" ===== ts3 ===== ") + "重连中...")
     try {
       await this.teamspeak.reconnect(TS.RECONNECT_TIMER, 1000)
       logger.info(loggerHex(" ===== ts3 ===== ") + "重连成功")
-      this.reconnectAttempts = 0 // 重连成功后重置重连次数
     } catch (e) {
       logger.error(loggerHex(" ===== ts3 ===== ") + "连接TS3失败", e)
     } finally {
@@ -195,7 +187,9 @@ export const getAllUserList = async () => {
         connectTime: string
       }>
     }
-    const channelList = await teamspeak3.teamspeak.channelList() //所有频道
+    const channelList = await teamspeak3.teamspeak.channelList().catch(() => {
+      return []
+    }) //所有频道
     for (let index = 0; index < channelList.length; index++) {
       const channel = channelList[index] //频道
       const allClient = await channel.getClients() //在当前频道的人
@@ -222,6 +216,7 @@ export const getAllUserList = async () => {
       })
     }
     return {
+      name: config().SERVER_NAME || config().HOST,
       res,
       count,
     }
