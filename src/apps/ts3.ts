@@ -9,10 +9,13 @@ let disNotifyNameList: string[] = []
 class ts3 {
   teamspeak: undefined | TeamSpeak
   connectTimer = 0
+  private isReConnecting = false
+  private reconnectAttempts = 0
   //初始化 如果已经有连接了就关闭连接重新连接
   init = async () => {
     const TS = config()
-    //fix ReferenceError: Cannot access 'config' before initialization
+    this.reconnectAttempts = 0
+    this.isReConnecting = false
     disNotifyNameList = [TS.NICKNAME, ...TS.DIS_NOTIFY_NAME_LIST]
     logger.info(loggerHex(" ===== ts3 ===== ") + "开始连接ts3服务器...")
     if (this.teamspeak) {
@@ -34,31 +37,11 @@ class ts3 {
     })
     _teamspeak.on("close", (e) => {
       logger.error(loggerHex(" ===== ts3 ===== ") + "ts3连接断开", e)
-      if (this.teamspeak) {
-        logger.info(loggerHex(" ===== ts3 ===== ") + "重连中...")
-        this.teamspeak
-          .reconnect(TS.RECONNECT_TIMER, 1000)
-          .catch((e) => {
-            logger.error(loggerHex(" ===== ts3 ===== ") + "连接TS3失败", e)
-          })
-          .then(() => {
-            logger.info(loggerHex(" ===== ts3 ===== ") + "重连成功")
-          })
-      }
+      this.handelReconnect()
     })
     _teamspeak.on("error", (err) => {
       logger.error(loggerHex(" ===== ts3 ===== ") + "ts3连接出错", err)
-      if (this.teamspeak) {
-        logger.info(loggerHex(" ===== ts3 ===== ") + "重连中...")
-        this.teamspeak
-          .reconnect(TS.RECONNECT_TIMER, 1000)
-          .catch((e) => {
-            logger.error(loggerHex(" ===== ts3 ===== ") + "连接TS3失败", e)
-          })
-          .then(() => {
-            logger.info(loggerHex(" ===== ts3 ===== ") + "重连成功")
-          })
-      }
+      this.handelReconnect()
     })
     _teamspeak.on("clientconnect", (e) => {
       if (!disNotifyNameList.includes(e.client.nickname)) {
@@ -171,6 +154,27 @@ class ts3 {
   reconnectTs = async () => {
     if (this.teamspeak) {
       this.teamspeak.reconnect(config().RECONNECT_TIMER, 1000)
+    }
+  }
+  //重连逻辑
+  private async handelReconnect() {
+    const TS = config()
+    if (!this.teamspeak || this.isReConnecting) return
+    this.isReConnecting = true
+    logger.info(
+      loggerHex(" ===== ts3 ===== ") +
+        "重连中... 尝试次数: " +
+        this.reconnectAttempts +
+        "次"
+    )
+    try {
+      await this.teamspeak.reconnect(TS.RECONNECT_TIMER, 1000)
+      logger.info(loggerHex(" ===== ts3 ===== ") + "重连成功")
+      this.reconnectAttempts = 0 // 重连成功后重置重连次数
+    } catch (e) {
+      logger.error(loggerHex(" ===== ts3 ===== ") + "连接TS3失败", e)
+    } finally {
+      this.isReConnecting = false
     }
   }
 }
