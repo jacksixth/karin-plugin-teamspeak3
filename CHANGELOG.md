@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.5](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.4...v1.5.5) (2025-02-24)
+
+
+### Bug Fixes
+
+* **ts3:** 优化重连逻辑并处理频道列表获取异常 ([6beed64](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/6beed6428e388c796eaeda125d3ca3317079cd92))
+
 ## [1.5.4](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.3...v1.5.4) (2025-02-24)
 
 
