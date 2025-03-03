@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.7](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.6...v1.5.7) (2025-03-03)
+
+
+### Bug Fixes
+
+* **ts3:** 优化 TS3 服务器连接和断开连接的处理 ([78092f0](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/78092f0416d2441d2a3a62b82a62e3b57e63fec6))
+
 ## [1.5.6](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.5...v1.5.6) (2025-03-03)
 
 
