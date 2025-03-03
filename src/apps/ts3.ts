@@ -17,8 +17,7 @@ class ts3 {
     disNotifyNameList = [TS.NICKNAME, ...TS.DIS_NOTIFY_NAME_LIST]
     logger.info(loggerHex(" ===== ts3 ===== ") + "开始连接ts3服务器...")
     if (this.teamspeak) {
-      await this.teamspeak.quit()
-      this.teamspeak = undefined
+      await this.quitTs()
     }
     const _teamspeak = new TeamSpeak({
       host: TS.HOST,
@@ -145,13 +144,17 @@ class ts3 {
   //关闭连接
   quitTs = async () => {
     if (this.teamspeak) {
+      this.teamspeak.removeAllListeners()
       this.teamspeak.quit()
+      this.teamspeak = undefined
     }
   }
   //重新连接
   reconnectTs = async () => {
     if (this.teamspeak) {
       this.teamspeak.reconnect(config().RECONNECT_TIMER, 1000)
+    } else {
+      this.init()
     }
   }
   //重连逻辑
