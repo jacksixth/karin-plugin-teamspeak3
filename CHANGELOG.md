@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.6](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.5...v1.5.6) (2025-03-03)
+
+
+### Bug Fixes
+
+* **README:** 更新 Teamspeak 插件功能说明 ([9d407ad](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/9d407ad237aeb40b4a79a49c626c580d5aac293a))
+
 ## [1.5.5](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.4...v1.5.5) (2025-02-24)
 
 
