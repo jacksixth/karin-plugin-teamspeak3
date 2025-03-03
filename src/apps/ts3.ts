@@ -231,10 +231,4 @@ router.get("/getAllUserList", async (req, res) => {
 })
 //将路由挂载到express实例中
 app.use("/api/teamspeak", router)
-//将静态资源挂载到express实例中 - 供外部单页应用网页部署时使用
-app.use("/teamspeak", express.static(dirPath + "/resources/static"))
-//供外部单页应用网页部署时使用 可用 ip:port/ts3 访问部署的网页
-app.get("/teamspeak", (req, res) => {
-  res.sendFile(dirPath + "/resources/static/index.html")
-})
 export default teamspeak3
