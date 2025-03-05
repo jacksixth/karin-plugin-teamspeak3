@@ -3,8 +3,8 @@ import { config, dirPath } from "../utils/index.js"
 import karin, { logger, render, segment, app } from "node-karin"
 import moment from "node-karin/moment"
 import express from "node-karin/express"
-const loggerHex = logger.chalk.hex("#90CAF9")
-logger.info(loggerHex(" ===== ts3 ===== ") + "初始化ts3插件")
+const loggerPluginName = logger.chalk.hex("#90CAF9")(" ===== ts3 ===== ")
+logger.info(loggerPluginName + "初始化ts3插件")
 let disNotifyNameList: string[] = []
 class ts3 {
   teamspeak: undefined | TeamSpeak
@@ -15,7 +15,7 @@ class ts3 {
     const TS = config()
     this.isReConnecting = false
     disNotifyNameList = [TS.NICKNAME, ...TS.DIS_NOTIFY_NAME_LIST]
-    logger.info(loggerHex(" ===== ts3 ===== ") + "开始连接ts3服务器...")
+    logger.info(loggerPluginName + "开始连接ts3服务器...")
     if (this.teamspeak) {
       await this.quitTs()
     }
@@ -29,24 +29,21 @@ class ts3 {
       nickname: TS.NICKNAME,
     })
     _teamspeak.on("ready", async () => {
-      logger.info(loggerHex(" ===== ts3 ===== ") + "ts3连接成功")
+      logger.info(loggerPluginName + "ts3连接成功")
       this.teamspeak = _teamspeak
     })
     _teamspeak.on("close", (e) => {
-      logger.error(loggerHex(" ===== ts3 ===== ") + "ts3连接断开", e)
+      logger.error(loggerPluginName + "ts3连接断开", e)
       this.handelReconnect()
     })
     _teamspeak.on("error", (err) => {
-      logger.error(loggerHex(" ===== ts3 ===== ") + "ts3连接出错", err)
+      logger.error(loggerPluginName + "ts3连接出错", err)
       this.handelReconnect()
     })
     _teamspeak.on("clientconnect", (e) => {
       if (!disNotifyNameList.includes(e.client.nickname)) {
-        logger.info(
-          loggerHex(" ===== ts3 ===== ") + e.client.nickname + "进入ts"
-        )
+        logger.info(loggerPluginName + e.client.nickname + "进入ts")
         const msg = segment.text(e.client.nickname + "进入ts")
-        const qq = TS.BOT_SELF_ID
         TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
           karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
@@ -56,9 +53,7 @@ class ts3 {
     _teamspeak.on("clientdisconnect", (e) => {
       if (e.client) {
         if (!disNotifyNameList.includes(e.client.nickname)) {
-          logger.info(
-            loggerHex(" ===== ts3 ===== ") + e.client.nickname + "离开ts"
-          )
+          logger.info(loggerPluginName + e.client.nickname + "离开ts")
           const msg = segment.text(e.client.nickname + "离开ts")
           TS.NOTICE_GROUP_NO.forEach((groupNo) => {
             const contact = karin.contact("group", groupNo + "")
@@ -162,12 +157,12 @@ class ts3 {
     const TS = config()
     if (!this.teamspeak || this.isReConnecting) return
     this.isReConnecting = true
-    logger.info(loggerHex(" ===== ts3 ===== ") + "重连中...")
+    logger.info(loggerPluginName + "重连中...")
     try {
       await this.teamspeak.reconnect(TS.RECONNECT_TIMER, 1000)
-      logger.info(loggerHex(" ===== ts3 ===== ") + "重连成功")
+      logger.info(loggerPluginName + "重连成功")
     } catch (e) {
-      logger.error(loggerHex(" ===== ts3 ===== ") + "连接TS3失败", e)
+      logger.error(loggerPluginName + "连接TS3失败", e)
     } finally {
       this.isReConnecting = false
     }

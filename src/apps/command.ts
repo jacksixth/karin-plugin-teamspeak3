@@ -1,6 +1,7 @@
 import { config, dirPath } from "../utils/index.js"
 import { karin, render, common, segment, logger } from "node-karin"
 import teamspeak3 from "./ts3.js"
+const loggerPluginName = logger.chalk.hex("#90CAF9")(" ===== ts3 ===== ")
 /**
  * 渲染ts3服务器内存在用户的列表
  * 触发指令: 人数
@@ -52,7 +53,7 @@ export const image = karin.command(
         return true
       }
     } catch (error) {
-      logger.error(error)
+      logger.error(loggerPluginName, error)
       await e.reply(JSON.stringify(error))
       return true
     }
