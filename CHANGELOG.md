@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.8](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.7...v1.5.8) (2025-03-05)
+
+
+### Bug Fixes
+
+* 重构日志输出格式 ([2efa650](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/2efa650cb36ce3d9f60e29ace27cda9244a80244))
+
 ## [1.5.7](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.6...v1.5.7) (2025-03-03)
 
 
