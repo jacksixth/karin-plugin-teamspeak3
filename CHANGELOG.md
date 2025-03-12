@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.9](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.8...v1.5.9) (2025-03-12)
+
+
+### Bug Fixes
+
+* **config:** 修复配置页面读取的不是最新的配置 ([12afc72](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/12afc72a15bf92ea097ef22fc55fe1e57fd09ef4))
+
 ## [1.5.8](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.7...v1.5.8) (2025-03-05)
 
 
