@@ -1,7 +1,6 @@
 import { Config } from "config/config/config"
 import { components, logger, writeJsonSync } from "node-karin"
 import { config, dirConfig } from "./utils"
-const defConfig = config()
 export default {
   info: {
     // 插件信息配置
@@ -10,7 +9,7 @@ export default {
   components: () => [
     components.input.string("HOST", {
       label: "teamspeak 服务器地址或域名(不带端口)",
-      defaultValue: defConfig.HOST,
+      defaultValue: config().HOST,
       variant: "underlined",
       placeholder: "请输入服务器地址或域名",
       rules: [
@@ -24,12 +23,12 @@ export default {
     components.input.string("SERVER_NAME", {
       label: "展示的服务器名(不填写则显示服务器地址)",
       placeholder: "请输入展示的服务器名",
-      defaultValue: defConfig.SERVER_NAME,
+      defaultValue: config().SERVER_NAME,
       variant: "underlined",
       isRequired: false,
     }),
     components.radio.group("PROTOCOL", {
-      defaultValue: defConfig.PROTOCOL,
+      defaultValue: config().PROTOCOL,
       label: "teamspeak 服务器查询 (一般使用默认的RAW即可)",
       size: "sm",
       orientation: "horizontal",
@@ -53,19 +52,19 @@ export default {
       type: "number",
       placeholder: "请输入服务器查询端口",
       variant: "underlined",
-      defaultValue: defConfig.QUERY_PORT + "",
+      defaultValue: config().QUERY_PORT + "",
       rules: [{ min: 1, max: 65535 }],
     }),
     components.input.number("SERVER_PORT", {
       label: "teamspeak 服务器语音端口 (一般使用默认 9987 即可)",
-      defaultValue: defConfig.SERVER_PORT + "",
+      defaultValue: config().SERVER_PORT + "",
       placeholder: "请输入服务器语音端口",
       variant: "underlined",
       rules: [{ min: 1, max: 65535 }],
     }),
     components.input.number("RECONNECT_TIMER", {
       label: "teamspeak 连接断开后重连次数 (-1表示将不断尝试)",
-      defaultValue: defConfig.RECONNECT_TIMER + "",
+      defaultValue: config().RECONNECT_TIMER + "",
       placeholder: "请输入重连次数",
       variant: "underlined",
       rules: [{ min: -1 }],
@@ -73,13 +72,13 @@ export default {
     components.input.string("USERNAME", {
       label:
         "teamspeak 管理员用户名 (建服时出现的,没修改时默认是 serveradmin )",
-      defaultValue: defConfig.USERNAME,
+      defaultValue: config().USERNAME,
       placeholder: "请输入管理员用户名",
       variant: "underlined",
     }),
     components.input.string("PASSWORD", {
       label: "teamspeak 管理员密码 (建服时出现的,每个服务器都不一样)",
-      defaultValue: defConfig.PASSWORD,
+      defaultValue: config().PASSWORD,
       type: "password",
       placeholder: "请输入管理员密码",
       variant: "underlined",
@@ -88,7 +87,7 @@ export default {
       label:
         "插件连接进服务器时使用的昵称 (默认为TSBOT,···客户端看不到该用户···) ",
       placeholder: "请输入连接昵称",
-      defaultValue: defConfig.NICKNAME,
+      defaultValue: config().NICKNAME,
       variant: "underlined",
     }),
     components.input.group("NOTICE_GROUP_NO", {
@@ -100,7 +99,7 @@ export default {
         variant: "faded",
         placeholder: "请输入群号",
       },
-      data: [...defConfig.NOTICE_GROUP_NO.map((i) => i + "")],
+      data: [...config().NOTICE_GROUP_NO.map((i) => i + "")],
     }),
     components.input.group("DIS_NOTIFY_NAME_LIST", {
       label:
@@ -112,7 +111,7 @@ export default {
         variant: "faded",
         placeholder: "请输入昵称",
       },
-      data: [...defConfig.DIS_NOTIFY_NAME_LIST],
+      data: [...config().DIS_NOTIFY_NAME_LIST],
     }),
   ],
 
@@ -120,7 +119,6 @@ export default {
   save: (config: Config) => {
     logger.info("保存的配置:", config)
     writeJsonSync(`${dirConfig}/config.json`, config)
-    // 在这里处理保存逻辑
     return {
       success: true,
       message: "保存成功",

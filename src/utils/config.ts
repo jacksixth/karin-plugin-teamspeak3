@@ -41,8 +41,8 @@ setTimeout(() => {
   const list = filesByExt(dirConfig, ".json", "abs")
   list.forEach((file) =>
     watch(file, (old: Config, now: Config) => {
-      logger.info("旧数据:", old)
-      logger.info("新数据:", now)
+      logger.info("旧数据:\n", old)
+      logger.info("新数据:\n", now)
       teamspeak3.init()
     })
   )
