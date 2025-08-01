@@ -14,5 +14,6 @@
   "DIS_NOTIFY_NAME_LIST": [
     "TESTBOT"
   ],
-  "SERVER_NAME": "xxxxxxx"
+  "SERVER_NAME": "xxxxxxx",
+  "ENABLE_CHANNEL_MOVE_NOTIFY": "true"
 }

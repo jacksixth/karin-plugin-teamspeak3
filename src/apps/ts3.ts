@@ -62,6 +62,17 @@ class ts3 {
         }
       }
     })
+    // 监听用户移动频道事件
+    _teamspeak.on("clientmoved", (e) => {
+      if (TS.ENABLE_CHANNEL_MOVE_NOTIFY === "true" && e.client && !disNotifyNameList.includes(e.client.nickname)) {
+        logger.info(loggerPluginName + e.client.nickname + "移动到频道: " + e.channel.name)
+        const msg = segment.text(e.client.nickname + "移动到频道: " + e.channel.name)
+        TS.NOTICE_GROUP_NO.forEach((groupNo) => {
+          const contact = karin.contact("group", groupNo + "")
+          karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
+        })
+      }
+    })
   }
   //获取ts3服务器的所有对应频道的人 -- 并组装成文字可直接发
   getAllChannelList = async () => {
@@ -223,7 +234,7 @@ export const getAllUserList = async () => {
   }
 }
 const router = express.Router()
-router.get("/getAllUserList", async (req, res) => {
+router.get("/getAllUserList", async (req: express.Request, res: express.Response) => {
   const result = await getAllUserList()
   res.send(result)
 })

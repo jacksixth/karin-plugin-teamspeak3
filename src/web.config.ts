@@ -113,6 +113,27 @@ export default {
       },
       data: [...config().DIS_NOTIFY_NAME_LIST],
     }),
+    components.radio.group("ENABLE_CHANNEL_MOVE_NOTIFY", {
+      defaultValue: config().ENABLE_CHANNEL_MOVE_NOTIFY ? "true" : "false",
+      label: "移动频道播报功能",
+      description: "当用户在Teamspeak中移动频道时自动播报",
+      size: "sm",
+      orientation: "horizontal",
+      radio: [
+        {
+          componentType: "radio",
+          key: "ENABLE_CHANNEL_MOVE_NOTIFY_TRUE",
+          value: "true",
+          label: "开启",
+        },
+        {
+          componentType: "radio",
+          key: "ENABLE_CHANNEL_MOVE_NOTIFY_FALSE",
+          value: "false",
+          label: "关闭",
+        },
+      ],
+    }),
   ],
 
   /** 前端点击保存之后调用的方法 */
