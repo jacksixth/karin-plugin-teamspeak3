@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.9...v1.6.0) (2025-08-01)
+
+
+### Features
+
+* 添加移动频道播报功能 ([294f6c7](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/294f6c76e8896a03772e9d76d5af4526c746677e))
+
+
+### Bug Fixes
+
+* 跳过类型库检查以提高编译效率 ([e8003ae](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e8003ae133a4581d1c711d2cfcba8bb2d1af8005))
+
 ## [1.5.9](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.5.8...v1.5.9) (2025-03-12)
 
 
