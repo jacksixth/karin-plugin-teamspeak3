@@ -29,7 +29,12 @@ class ts3 {
       nickname: TS.NICKNAME,
     })
     _teamspeak.on("ready", async () => {
-      logger.info(loggerPluginName + "ts3连接成功")
+      if (this.isReConnecting) {
+        logger.info(loggerPluginName + "重连成功")
+      } else {
+        logger.info(loggerPluginName + "ts3连接成功")
+      }
+      this.isReConnecting = false
       this.teamspeak = _teamspeak
     })
     _teamspeak.on("close", (e) => {
@@ -64,9 +69,20 @@ class ts3 {
     })
     // 监听用户移动频道事件
     _teamspeak.on("clientmoved", (e) => {
-      if (TS.ENABLE_CHANNEL_MOVE_NOTIFY === "true" && e.client && !disNotifyNameList.includes(e.client.nickname)) {
-        logger.info(loggerPluginName + e.client.nickname + "移动到频道: " + e.channel.name)
-        const msg = segment.text(e.client.nickname + "移动到频道: " + e.channel.name)
+      if (
+        TS.ENABLE_CHANNEL_MOVE_NOTIFY === "true" &&
+        e.client &&
+        !disNotifyNameList.includes(e.client.nickname)
+      ) {
+        logger.info(
+          loggerPluginName +
+            e.client.nickname +
+            "移动到频道: " +
+            e.channel.name,
+        )
+        const msg = segment.text(
+          e.client.nickname + "移动到频道: " + e.channel.name,
+        )
         TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
           karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
@@ -91,12 +107,12 @@ class ts3 {
     renderList.push(
       usePuppeteer
         ? `<h1>${TS.SERVER_NAME || TS.HOST}</h1>`
-        : `====${TS.SERVER_NAME || TS.HOST}====`
+        : `====${TS.SERVER_NAME || TS.HOST}====`,
     )
     renderList.push(
       usePuppeteer
         ? `<div class="tips">仅展示有人的频道</div>`
-        : `仅展示有人的频道 `
+        : `仅展示有人的频道 `,
     )
     if (!usePuppeteer) {
       //不渲染成图片就使用=====分割频道
@@ -109,26 +125,26 @@ class ts3 {
       const allClient = await channel.getClients() //在当前频道的人
       //排除不显示的人
       const clients = allClient.filter(
-        (c) => !disNotifyNameList.includes(c.nickname)
+        (c) => !disNotifyNameList.includes(c.nickname),
       )
       count += clients.length
       if (clients.length == 0) continue
       renderList.push(
-        usePuppeteer ? `<ul>${channel.name}` : ` ${channel.name} `
+        usePuppeteer ? `<ul>${channel.name}` : ` ${channel.name} `,
       )
       for (let index = 0; index < clients.length; index++) {
         const client = clients[index]
         const connectTimeSec = moment().diff(
           moment.unix(client.lastconnected),
-          "second"
+          "second",
         )
         let connectTime = `(${Math.floor(connectTimeSec / 60)}:${Math.floor(
-          connectTimeSec % 60
+          connectTimeSec % 60,
         )}) `
         renderList.push(
           usePuppeteer
             ? `<li>${client.nickname} ${connectTime}</li>`
-            : `- ${client.nickname} ${connectTime}`
+            : `- ${client.nickname} ${connectTime}`,
         )
       }
       if (!usePuppeteer) {
@@ -143,7 +159,7 @@ class ts3 {
       0,
       usePuppeteer
         ? `<div class="count">当前频道内共有${count}人</div>`
-        : `当前频道内共有${count}人`
+        : `当前频道内共有${count}人`,
     )
     return usePuppeteer ? renderList.join("") : renderList.join("\n")
   }
@@ -171,11 +187,8 @@ class ts3 {
     logger.info(loggerPluginName + "重连中...")
     try {
       await this.teamspeak.reconnect(TS.RECONNECT_TIMER, 1000)
-      logger.info(loggerPluginName + "重连成功")
     } catch (e) {
       logger.error(loggerPluginName + "连接TS3失败", e)
-    } finally {
-      this.isReConnecting = false
     }
   }
 }
@@ -204,16 +217,16 @@ export const getAllUserList = async () => {
       const allClient = await channel.getClients() //在当前频道的人
       //排除不显示的人
       const clients = allClient.filter(
-        (c) => !disNotifyNameList.includes(c.nickname)
+        (c) => !disNotifyNameList.includes(c.nickname),
       )
       count += clients.length
       res[channel.name] = clients.map((c) => {
         const connectTimeSec = moment().diff(
           moment.unix(c.lastconnected),
-          "second"
+          "second",
         )
         let connectTime = `${Math.floor(connectTimeSec / 60)}:${Math.floor(
-          connectTimeSec % 60
+          connectTimeSec % 60,
         )}`
         return {
           nickName: c.nickname, //昵称
@@ -234,10 +247,13 @@ export const getAllUserList = async () => {
   }
 }
 const router = express.Router()
-router.get("/getAllUserList", async (req: express.Request, res: express.Response) => {
-  const result = await getAllUserList()
-  res.send(result)
-})
+router.get(
+  "/getAllUserList",
+  async (req: express.Request, res: express.Response) => {
+    const result = await getAllUserList()
+    res.send(result)
+  },
+)
 //将路由挂载到express实例中
 app.use("/api/teamspeak", router)
 export default teamspeak3
