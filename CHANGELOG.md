@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.9.0...v1.9.1) (2026-04-20)
+
+
+### Bug Fixes
+
+* **ts3:** 移除未使用的重连方法、删除连接出错时的重连 ([e80e0aa](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e80e0aae8c81816debf9f23b74f933c68cad5b08))
+
 ## [1.9.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.8.0...v1.9.0) (2026-04-20)
 
 
