@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.8.0...v1.9.0) (2026-04-20)
+
+
+### Features
+
+* 更新npm包 ([e7833c5](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e7833c5d68b3df4764a69d5e933261f52786769e))
+
 ## [1.8.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.7.0...v1.8.0) (2026-04-20)
 
 
