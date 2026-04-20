@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.7.0...v1.8.0) (2026-04-20)
+
+
+### Features
+
+* 发版test ([491eedf](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/491eedfc8695a39395f6170b706a2afe6b79be7a))
+
 ## [1.7.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.6.0...v1.7.0) (2026-04-20)
 
 
