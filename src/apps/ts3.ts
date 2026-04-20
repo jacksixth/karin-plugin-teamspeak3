@@ -43,7 +43,6 @@ class ts3 {
     })
     _teamspeak.on("error", (err) => {
       logger.error(loggerPluginName + "ts3连接出错", err)
-      this.handelReconnect()
     })
     _teamspeak.on("clientconnect", (e) => {
       if (!disNotifyNameList.includes(e.client.nickname)) {
@@ -169,14 +168,6 @@ class ts3 {
       this.teamspeak.removeAllListeners()
       this.teamspeak.quit()
       this.teamspeak = undefined
-    }
-  }
-  //重新连接
-  reconnectTs = async () => {
-    if (this.teamspeak) {
-      this.teamspeak.reconnect(config().RECONNECT_TIMER, 1000)
-    } else {
-      this.init()
     }
   }
   //重连逻辑
