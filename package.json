@@ -25,15 +25,6 @@
     "clean": "npm lib/cli/pr.js clean",
     "pr": "node lib/cli/pr.js"
   },
-  "devDependencies": {
-    "@types/node": "^20.19.39",
-    "eslint": "^9.39.4",
-    "neostandard": "^0.11.9",
-    "node-karin": "latest",
-    "tsc-alias": "^1.8.16",
-    "tsx": "^3.14.0",
-    "typescript": "^5.9.3"
-  },
   "dependencies": {
     "teamspeak.js": "^1.11.2"
   },
