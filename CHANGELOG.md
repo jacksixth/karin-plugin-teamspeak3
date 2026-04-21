@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.10.1...v1.10.2) (2026-04-21)
+
+
+### Bug Fixes
+
+* **ts3:** 修复Teamspeak服务器连接问题 ([1e03e5e](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/1e03e5e7c8dc8c9a6ea01ec7f4905e922527b891))
+
 ## [1.10.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.10.0...v1.10.1) (2026-04-21)
 
 
