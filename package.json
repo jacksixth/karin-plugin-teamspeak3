@@ -35,7 +35,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "ts3-nodejs-library": "^3.5.2"
+    "teamspeak.js": "^1.11.2"
   },
   "karin": {
     "apps": [
