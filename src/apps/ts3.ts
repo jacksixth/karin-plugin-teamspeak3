@@ -32,7 +32,7 @@ class ts3 {
       }
       this.isReConnecting = false
       await _teamspeak.login(TS.USERNAME, TS.PASSWORD)
-      await _teamspeak.virtualServers.use({ port: TS.QUERY_PORT })
+      await _teamspeak.virtualServers.use(1)
       await _teamspeak.notifications.subscribeAll()
       await _teamspeak.client.setNickname(TS.NICKNAME)
       this.teamspeak = _teamspeak
