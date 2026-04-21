@@ -84,6 +84,7 @@ class ts3 {
         })
       }
     })
+    _teamspeak.connect()
   }
   //获取ts3服务器的所有对应频道的人 -- 并组装成文字可直接发
   getAllChannelList = async () => {
