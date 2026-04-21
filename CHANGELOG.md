@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.10.0...v1.10.1) (2026-04-21)
+
+
+### Bug Fixes
+
+* **ts3:** 添加TeamSpeak连接初始化 ([606bb88](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/606bb88e3a4ba32da2e4dbbca15c5edb03c32b36))
+
 ## [1.10.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.9.1...v1.10.0) (2026-04-21)
 
 
