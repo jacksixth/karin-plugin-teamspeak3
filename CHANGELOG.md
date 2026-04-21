@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.9.1...v1.10.0) (2026-04-21)
+
+
+### Features
+
+* **ts3:** 更换TeamSpeak库为teamspeak.js并优化连接逻辑 ([3e28749](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/3e28749f461d3ba7bee9b6bfc99efec7b1080326))
+
 ## [1.9.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.9.0...v1.9.1) (2026-04-20)
 
 
