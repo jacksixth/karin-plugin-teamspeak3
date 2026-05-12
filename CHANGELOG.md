@@ -1,5 +1,43 @@
 # Changelog
 
+## [1.10.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.9.0...v1.10.0) (2026-05-12)
+
+
+### Features
+
+* **config:** 添加 web配置页面（仅开发了页面） ([0194407](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/0194407a7f0c0cbb62f9125046c439ebb035b2f1))
+* **deps:** 升级依赖包版本 ([364d990](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/364d990733a36836f0c4478803b65722d8871607))
+* **package:** 发布版本 ([cc1e5b0](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/cc1e5b055ac5220ff6772c7666c9102dcb97a561))
+* **ts3:** 优化 TS3 服务器列表展示效果及配置流程 ([4cd4da8](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/4cd4da8dbfea92288ef82753418f5b056d67c5f9))
+* **ts3:** 优化日志输出并添加在线用户接口 ([6c63627](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/6c63627d43123d9dd3a51aa3fff6c08cecdbe864))
+* **ts3:** 添加关闭连接和重新连接方法 ([eaf792f](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/eaf792f7274f4db6bab0fbf002d50798893d114a))
+* 发版test ([491eedf](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/491eedfc8695a39395f6170b706a2afe6b79be7a))
+* 更新npm包 ([e7833c5](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e7833c5d68b3df4764a69d5e933261f52786769e))
+* 添加 web 配置文件 ([4576244](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/4576244a6d63fbd9b3425e1b863c67909c366fe6))
+* 添加移动频道播报功能 ([294f6c7](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/294f6c76e8896a03772e9d76d5af4526c746677e))
+
+
+### Bug Fixes
+
+* action 修改 ([9979cdd](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/9979cdd23a54f636b70fa91c0fb3a24776b1d875))
+* **apps:** 注释掉渲染器连接检测代码-取消使用渲染器 ([ea6ffca](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/ea6ffca8ca1c9105e2769f09c4beca478bed1962))
+* **config:** 修复配置页面读取的不是最新的配置 ([12afc72](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/12afc72a15bf92ea097ef22fc55fe1e57fd09ef4))
+* **package:** 更新 package.json 文件 ([768f35c](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/768f35c589750dbb1f4172382a3eebbee9f0c4d6))
+* **package:** 更新版本号到1.11.1 ([187fc67](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/187fc678d799b6e52fec4c3ea3b284431f7435ff))
+* **README:** 更新 Teamspeak 插件功能说明 ([9d407ad](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/9d407ad237aeb40b4a79a49c626c580d5aac293a))
+* **ts3:** API 路由挂载地址更改和静态资源服务路径更改 ([45d5f89](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/45d5f899b8c8dc3c938f1045957e06f1faf90a13))
+* **ts3:** 优化 getLastConnectedTime 格式 ([9cdd0a9](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/9cdd0a953e2104a4387adb47bf33530eb9a3d0aa))
+* **ts3:** 优化 TS3 服务器连接和断开连接的处理 ([78092f0](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/78092f0416d2441d2a3a62b82a62e3b57e63fec6))
+* **ts3:** 优化重连机制 ([41e3f83](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/41e3f83b257f4af7ca66ad5f5288fdc5d580c2e2))
+* **ts3:** 优化重连逻辑并处理频道列表获取异常 ([6beed64](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/6beed6428e388c796eaeda125d3ca3317079cd92))
+* **ts3:** 修复getAllUserList 仅返回一个频道人数的bug ([8609c7a](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/8609c7a23dca8983a1bddfb374ca9b79a0215bb4))
+* **ts3:** 修复配置加载导致的引用错误 ([e3cb574](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e3cb5746c7886e9cb5edc58e07ac110539259de3))
+* **ts3:** 移除未使用的重连方法、删除连接出错时的重连 ([e80e0aa](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e80e0aae8c81816debf9f23b74f933c68cad5b08))
+* **utils/config:** 监测配置文件变化后自动重新初始化 teamspeak3 ([847f272](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/847f2725f9c18382ed8b21b295cf006357e4b55f))
+* **web.config:** 更新 teamspeak 服务器地址输入支持域名 ([10b66cd](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/10b66cd31e83326b4621c061d597dec6b8708c10))
+* 跳过类型库检查以提高编译效率 ([e8003ae](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e8003ae133a4581d1c711d2cfcba8bb2d1af8005))
+* 重构日志输出格式 ([2efa650](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/2efa650cb36ce3d9f60e29ace27cda9244a80244))
+
 ## [1.9.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.8.0...v1.9.0) (2026-05-12)
 
 
