@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.9.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.8.0...v1.9.0) (2026-05-12)
+
+
+### Features
+
+* **deps:** 升级依赖包版本 ([364d990](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/364d990733a36836f0c4478803b65722d8871607))
+* 更新npm包 ([e7833c5](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e7833c5d68b3df4764a69d5e933261f52786769e))
+
+
+### Bug Fixes
+
+* **ts3:** 移除未使用的重连方法、删除连接出错时的重连 ([e80e0aa](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/e80e0aae8c81816debf9f23b74f933c68cad5b08))
+
 ## [1.8.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.7.0...v1.8.0) (2026-04-20)
 
 
