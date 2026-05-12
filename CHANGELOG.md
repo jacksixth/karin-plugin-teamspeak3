@@ -4,7 +4,7 @@
 
 ## [1.11.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.10.1...v1.10.2) (2026-05-12)
 
-回滚版本到1.9.0
+回滚版本到1.9.0的代码并重新使用 ts3-nodejs-library 库
 
 ## [1.10.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.10.1...v1.10.2) (2026-04-21)
 
