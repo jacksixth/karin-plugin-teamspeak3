@@ -26,16 +26,16 @@
     "pr": "node lib/cli/pr.js"
   },
   "devDependencies": {
-    "@types/node": "^20.19.39",
+    "@types/node": "^20.19.41",
     "eslint": "^9.39.4",
     "neostandard": "^0.11.9",
     "node-karin": "latest",
-    "tsc-alias": "^1.8.16",
+    "tsc-alias": "^1.8.17",
     "tsx": "^3.14.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "ts3-nodejs-library": "^3.5.2"
+    "ts3-nodejs-library": "^3.5.3"
   },
   "karin": {
     "apps": [
