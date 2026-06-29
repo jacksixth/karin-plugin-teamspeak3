@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [1.12.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.5...v1.12.0) (2026-06-29)
+
+
+### Features
+
+* **config:** 添加插件名称和描述信息 ([330addc](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/330addc37c73489907d2b5696db446d6d9ad3580))
+
 ## [1.11.5](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.4...v1.11.5) (2026-06-29)
 
 
