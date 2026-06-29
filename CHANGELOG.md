@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [1.13.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.12.0...v1.13.0) (2026-06-29)
+
+
+### Features
+
+* **ts3:** 优化消息发送逻辑，支持不同协议的消息格式。区分官BOT和其他，官BOT使用markdown'格式发信息 ([a9d1060](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/a9d1060d11dc0c619017662577c4a82ab3deddfe))
+
 ## [1.12.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.5...v1.12.0) (2026-06-29)
 
 
