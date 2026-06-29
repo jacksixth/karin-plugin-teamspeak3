@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [1.11.3](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.2...v1.11.3) (2026-06-29)
+
+
+### Bug Fixes
+
+* **ts3:** 移除未使用的渲染器代码，简化频道人数获取逻辑 ([2bcd448](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/2bcd44829768672d169acf0e0f4ff1f0496902ca))
+
 ## [1.11.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.1...v1.11.2) (2026-06-29)
 
 
