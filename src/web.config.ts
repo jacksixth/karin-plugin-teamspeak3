@@ -91,11 +91,11 @@ export default {
       variant: "underlined",
     }),
     components.input.group("NOTICE_GROUP_NO", {
-      label: "通知用户进出ts3的群号 可多个",
+      label: "通知用户进出ts3的群号 可多个(如果是QQ官BOT,此处需要填写OPEN_GROUP_ID。请先在对应群内触发人数并在后台获取OPEN_GROUP_ID,请查看readme来获取详情)",
       template: {
         componentType: "input",
         key: "NOTICE_GROUP_NO",
-        type: "number",
+        type: "text",
         variant: "faded",
         placeholder: "请输入群号",
       },
