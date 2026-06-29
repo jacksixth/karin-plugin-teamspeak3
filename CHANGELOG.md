@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [1.11.5](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.4...v1.11.5) (2026-06-29)
+
+
+### Bug Fixes
+
+* **config:** 修正通知群号类型为字符串数组 ([07e1589](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/07e158932af1d71a796c345e5b4c0aad3c7a3269))
+
 ## [1.11.4](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.3...v1.11.4) (2026-06-29)
 
 
