@@ -12,11 +12,13 @@ export const image = karin.command(
     try {
       const list = await teamspeak3.getAllChannelList()
       if (list) {
-        await e.reply(segment.markdown(list))
+        if (e.bot.adapter.protocol == "qqbot") {
+          await e.reply(segment.markdown(list))
+        } else {
+          await e.reply(segment.text(list))
+        }
       } else {
-        await e.reply(
-          segment.text("获取频道列表失败,可能是连接ts3服务器失败")
-        )
+        await e.reply(segment.text("获取频道列表失败,可能是连接ts3服务器失败"))
       }
       return true
     } catch (error) {
@@ -34,5 +36,5 @@ export const image = karin.command(
     name: "显示ts服务器内人数",
     /** 谁可以触发这个插件 'all' | 'master' | 'admin' | 'group.owner' | 'group.admin' */
     permission: "all",
-  }
+  },
 )

@@ -47,11 +47,15 @@ class ts3 {
     _teamspeak.on("clientconnect", (e) => {
       if (!disNotifyNameList.includes(e.client.nickname)) {
         logger.info(loggerPluginName + e.client.nickname + "进入ts")
-        const msg = segment.markdown(`**${e.client.nickname}** 进入了 TS 服务器`)
         const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
         TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
-          bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
+          bots.forEach(bot => {
+            const msg = bot.adapter.protocol === "qqbot"
+              ? segment.markdown(`**${e.client.nickname}** 进入了 TS 服务器`)
+              : segment.text(`${e.client.nickname} 进入了 TS 服务器`)
+            karin.sendMsg(bot.account.selfId, contact, msg)
+          })
         })
       }
     })
@@ -59,11 +63,15 @@ class ts3 {
       if (e.client) {
         if (!disNotifyNameList.includes(e.client.nickname)) {
           logger.info(loggerPluginName + e.client.nickname + "离开ts")
-          const msg = segment.markdown(`**${e.client.nickname}** 离开了 TS 服务器`)
           const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
           TS.NOTICE_GROUP_NO.forEach((groupNo) => {
             const contact = karin.contact("group", groupNo + "")
-            bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
+            bots.forEach(bot => {
+              const msg = bot.adapter.protocol === "qqbot"
+                ? segment.markdown(`**${e.client!.nickname}** 离开了 TS 服务器`)
+                : segment.text(`${e.client!.nickname} 离开了 TS 服务器`)
+              karin.sendMsg(bot.account.selfId, contact, msg)
+            })
           })
         }
       }
@@ -81,13 +89,19 @@ class ts3 {
             "移动到频道: " +
             e.channel.name,
         )
-        const msg = segment.markdown(
-          `**${e.client.nickname}** 移动到了频道 **${e.channel.name}**`,
-        )
         const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
         TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
-          bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
+          bots.forEach(bot => {
+            const msg = bot.adapter.protocol === "qqbot"
+              ? segment.markdown(
+                  `**${e.client.nickname}** 移动到了频道 **${e.channel.name}**`,
+                )
+              : segment.text(
+                  `${e.client.nickname} 移动到了频道 ${e.channel.name}`,
+                )
+            karin.sendMsg(bot.account.selfId, contact, msg)
+          })
         })
       }
     })
