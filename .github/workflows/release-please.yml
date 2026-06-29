@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
       - name: 拉取代码
@@ -84,10 +87,8 @@ jobs:
           package-name: "karin-plugin-teamspeak"
 
       - name: 发布到 npm
-        run: npm run pub
+        run: npm publish --provenance --access public
         if: ${{ steps.release_please.outputs.release_created }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 上传 release
         if: ${{ steps.release_please.outputs.release_created }}
