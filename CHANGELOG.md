@@ -1,6 +1,14 @@
 # Changelog
 
 
+## [1.11.4](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.3...v1.11.4) (2026-06-29)
+
+
+### Bug Fixes
+
+* **README:** 更新获取QQ群号的说明并添加示例图片 ([d1624cf](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/d1624cfd869b7de8d8b0058e00324788a2016ccf))
+* **ts3:** 优化用户进入、离开和移动频道时的通知逻辑 ([126b052](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/126b052dfeb2b97ae1267e5ad925ad1f5ec28b93))
+
 ## [1.11.3](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.2...v1.11.3) (2026-06-29)
 
 
