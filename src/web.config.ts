@@ -1,9 +1,11 @@
-import { Config } from "config/config/config"
+import { Config } from "config/config/config.d"
 import { components, logger, writeJsonSync } from "node-karin"
 import { config, dirConfig } from "./utils"
 export default {
   info: {
     // 插件信息配置
+    name: "Teamspeak3 服务器",
+    description: "连接并管理 Teamspeak3 语音服务器",
   },
   /** 动态渲染的组件 */
   components: () => [
