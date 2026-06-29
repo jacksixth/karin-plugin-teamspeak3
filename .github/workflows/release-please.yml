@@ -33,6 +33,13 @@ jobs:
         run: |
           pnpm install
 
+      - name: 更新版本号
+        uses: google-github-actions/release-please-action@v3
+        id: release_please
+        with:
+          release-type: node
+          package-name: "karin-plugin-teamspeak"
+
       - name: 删除 pnpm-lock.yaml
         run: rm -rf pnpm-lock.yaml
 
@@ -79,13 +86,6 @@ jobs:
         with:
           name: build-zip
           path: build.zip
-
-      - name: 更新版本号
-        uses: google-github-actions/release-please-action@v3
-        id: release_please
-        with:
-          release-type: node
-          package-name: "karin-plugin-teamspeak"
 
       - name: 发布到 npm
         run: npm publish --provenance --access public
