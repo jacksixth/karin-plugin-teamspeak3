@@ -44,7 +44,7 @@ export const image = karin.command(
       } else {
         const list = await teamspeak3.getAllChannelList()
         if (list) {
-          await e.reply(segment.text(list))
+          await e.reply(segment.markdown(list))
         } else {
           await e.reply(
             segment.text("获取频道列表失败,可能是连接ts3服务器失败")

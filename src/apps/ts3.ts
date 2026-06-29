@@ -1,6 +1,6 @@
 import { QueryProtocol, TeamSpeak } from "ts3-nodejs-library"
 import { config, dirPath } from "../utils/index.js"
-import karin, { logger, render, segment, app } from "node-karin"
+import karin, { logger, segment, app } from "node-karin"
 import moment from "node-karin/moment"
 import express from "node-karin/express"
 const loggerPluginName = logger.chalk.hex("#90CAF9")(" ===== ts3 ===== ")
@@ -47,7 +47,7 @@ class ts3 {
     _teamspeak.on("clientconnect", (e) => {
       if (!disNotifyNameList.includes(e.client.nickname)) {
         logger.info(loggerPluginName + e.client.nickname + "进入ts")
-        const msg = segment.text(e.client.nickname + "进入ts")
+        const msg = segment.markdown(`**${e.client.nickname}** 进入了 TS 服务器`)
         TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
           karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
@@ -58,7 +58,7 @@ class ts3 {
       if (e.client) {
         if (!disNotifyNameList.includes(e.client.nickname)) {
           logger.info(loggerPluginName + e.client.nickname + "离开ts")
-          const msg = segment.text(e.client.nickname + "离开ts")
+          const msg = segment.markdown(`**${e.client.nickname}** 离开了 TS 服务器`)
           TS.NOTICE_GROUP_NO.forEach((groupNo) => {
             const contact = karin.contact("group", groupNo + "")
             karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
@@ -79,8 +79,8 @@ class ts3 {
             "移动到频道: " +
             e.channel.name,
         )
-        const msg = segment.text(
-          e.client.nickname + "移动到频道: " + e.channel.name,
+        const msg = segment.markdown(
+          `**${e.client.nickname}** 移动到了频道 **${e.channel.name}**`,
         )
         TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
@@ -94,29 +94,10 @@ class ts3 {
     if (!this.teamspeak) {
       return
     }
-    //默认尝试使用渲染器，调用失败则表示未连接渲染器
-    let usePuppeteer = false
-    // try {
-    //   render.App()
-    // } catch (error) {
-    //   usePuppeteer = false
-    // }
     const TS = config()
     const renderList = [] as string[]
-    renderList.push(
-      usePuppeteer
-        ? `<h1>${TS.SERVER_NAME || TS.HOST}</h1>`
-        : `====${TS.SERVER_NAME || TS.HOST}====`,
-    )
-    renderList.push(
-      usePuppeteer
-        ? `<div class="tips">仅展示有人的频道</div>`
-        : `仅展示有人的频道 `,
-    )
-    if (!usePuppeteer) {
-      //不渲染成图片就使用=====分割频道
-      renderList.push(`======`)
-    }
+    renderList.push(`# ${TS.SERVER_NAME || TS.HOST}`)
+    renderList.push(`> 仅展示有人的频道`)
     const channelList = await this.teamspeak.channelList() //所有频道
     let count = 0
     for (let index = 0; index < channelList.length; index++) {
@@ -128,9 +109,8 @@ class ts3 {
       )
       count += clients.length
       if (clients.length == 0) continue
-      renderList.push(
-        usePuppeteer ? `<ul>${channel.name}` : ` ${channel.name} `,
-      )
+      renderList.push(`---`)
+      renderList.push(`**${channel.name}**`)
       for (let index = 0; index < clients.length; index++) {
         const client = clients[index]
         const connectTimeSec = moment().diff(
@@ -139,28 +119,12 @@ class ts3 {
         )
         let connectTime = `(${Math.floor(connectTimeSec / 60)}:${Math.floor(
           connectTimeSec % 60,
-        )}) `
-        renderList.push(
-          usePuppeteer
-            ? `<li>${client.nickname} ${connectTime}</li>`
-            : `- ${client.nickname} ${connectTime}`,
-        )
-      }
-      if (!usePuppeteer) {
-        //不渲染成图片就使用=====分割频道
-        renderList.push(`======`)
-      } else {
-        renderList.push("</ul>")
+        )})`
+        renderList.push(`- ${client.nickname} ${connectTime}`)
       }
     }
-    renderList.splice(
-      2,
-      0,
-      usePuppeteer
-        ? `<div class="count">当前频道内共有${count}人</div>`
-        : `当前频道内共有${count}人`,
-    )
-    return usePuppeteer ? renderList.join("") : renderList.join("\n")
+    renderList.splice(2, 0, `> 当前在线 **${count}** 人`)
+    return renderList.join("\n")
   }
   //关闭连接
   quitTs = async () => {
