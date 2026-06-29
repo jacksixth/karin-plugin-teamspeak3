@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [1.11.2](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.1...v1.11.2) (2026-06-29)
+
+
+### Bug Fixes
+
+* **ts3:** 修改频道列表回复格式为Markdown ([be86ca3](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/be86ca34ed0eb3911538d0d691acfc1904a0848c))
+
 ## [1.11.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.0...v1.11.1) (2026-06-29)
 
 
