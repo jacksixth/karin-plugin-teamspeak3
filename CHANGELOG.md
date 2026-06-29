@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [1.11.1](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.11.0...v1.11.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* 回滚代码 ([5f48094](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/5f48094a4566011304a484316f7ebe429ed06bcb))
+
 ## [1.11.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.10.0...v1.11.0) (2026-05-12)
 
 
