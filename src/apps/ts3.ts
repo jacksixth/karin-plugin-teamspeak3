@@ -48,9 +48,10 @@ class ts3 {
       if (!disNotifyNameList.includes(e.client.nickname)) {
         logger.info(loggerPluginName + e.client.nickname + "进入ts")
         const msg = segment.markdown(`**${e.client.nickname}** 进入了 TS 服务器`)
+        const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
         TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
-          karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
+          bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
         })
       }
     })
@@ -59,9 +60,10 @@ class ts3 {
         if (!disNotifyNameList.includes(e.client.nickname)) {
           logger.info(loggerPluginName + e.client.nickname + "离开ts")
           const msg = segment.markdown(`**${e.client.nickname}** 离开了 TS 服务器`)
+          const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
           TS.NOTICE_GROUP_NO.forEach((groupNo) => {
             const contact = karin.contact("group", groupNo + "")
-            karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
+            bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
           })
         }
       }
@@ -82,9 +84,10 @@ class ts3 {
         const msg = segment.markdown(
           `**${e.client.nickname}** 移动到了频道 **${e.channel.name}**`,
         )
+        const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
         TS.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
-          karin.sendMsg(karin.getBotAll()[1].account.selfId, contact, msg)
+          bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
         })
       }
     })
