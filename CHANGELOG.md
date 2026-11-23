@@ -1,6 +1,18 @@
 # Changelog
 
 
+## [1.14.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.13.0...v1.14.0) (2026-11-23)
+
+
+### Features
+
+* **ts3:** 添加群聊TS通知功能，支持群主和管理员通过指令开启或关闭通知 ([3c3ff6e](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/3c3ff6e1c8323bd78ded3d3bc346edc15b29641e))
+
+
+### Bug Fixes
+
+* **ts3:** 修复了部分bug ([3c3ff6e](https://github.com/jacksixth/karin-plugin-teamspeak3/commit/3c3ff6e1c8323bd78ded3d3bc346edc15b29641e))
+
 ## [1.13.0](https://github.com/jacksixth/karin-plugin-teamspeak3/compare/v1.12.0...v1.13.0) (2026-06-29)
 
 
