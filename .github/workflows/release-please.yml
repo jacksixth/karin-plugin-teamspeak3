@@ -21,11 +21,18 @@ jobs:
       - name: 安装node
         uses: actions/setup-node@v4
         with:
-          node-version: 21
+          node-version: 24
           registry-url: "https://registry.npmjs.org"
 
+      - name: 升级npm
+        run: |
+          # OIDC trusted publishing 需要 npm >= 11.5.1
+          npm install -g npm@^11.5.1
+          node --version
+          npm --version
+
       - name: 安装pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 9.7.1
 
@@ -34,11 +41,10 @@ jobs:
           pnpm install
 
       - name: 更新版本号
-        uses: google-github-actions/release-please-action@v3
+        uses: google-github-actions/release-please-action@v4
         id: release_please
         with:
           release-type: node
-          package-name: "karin-plugin-teamspeak"
 
       - name: 删除 pnpm-lock.yaml
         run: rm -rf pnpm-lock.yaml
@@ -88,11 +94,21 @@ jobs:
           path: build.zip
 
       - name: 发布到 npm
-        run: npm publish --provenance --access public
-        if: ${{ steps.release_please.outputs.release_created }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "karin-plugin-teamspeak@$VERSION" version >/dev/null 2>&1; then
+            echo "karin-plugin-teamspeak@$VERSION 已存在于 npm，跳过发布"
+            exit 0
+          fi
+          npm publish --provenance --access public
 
       - name: 上传 release
-        if: ${{ steps.release_please.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ steps.release_please.outputs.tag_name }} build.zip
+        run: |
+          TAG="v$(node -p "require('./package.json').version")"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" build.zip --clobber
+          else
+            echo "Release $TAG 不存在，跳过上传"
+          fi
