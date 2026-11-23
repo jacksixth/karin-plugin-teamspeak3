@@ -116,7 +116,8 @@ export default {
       data: [...config().DIS_NOTIFY_NAME_LIST],
     }),
     components.radio.group("ENABLE_CHANNEL_MOVE_NOTIFY", {
-      defaultValue: config().ENABLE_CHANNEL_MOVE_NOTIFY ? "true" : "false",
+      // 配置项是字符串，直接做真值判断会把 "false" 误判为开启
+      defaultValue: String(config().ENABLE_CHANNEL_MOVE_NOTIFY) === "true" ? "true" : "false",
       label: "移动频道播报功能",
       description: "当用户在Teamspeak中移动频道时自动播报",
       size: "sm",

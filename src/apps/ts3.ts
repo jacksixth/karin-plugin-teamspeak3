@@ -45,41 +45,36 @@ class ts3 {
       logger.error(loggerPluginName + "ts3连接出错", err)
     })
     _teamspeak.on("clientconnect", (e) => {
+      const current = config()
       if (!disNotifyNameList.includes(e.client.nickname)) {
         logger.info(loggerPluginName + e.client.nickname + "进入ts")
         const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
-        TS.NOTICE_GROUP_NO.forEach((groupNo) => {
+        const msg = segment.text(`${e.client.nickname} 进入了 TS 服务器`)
+        current.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
-          bots.forEach(bot => {
-            const msg = bot.adapter.protocol === "qqbot"
-              ? segment.markdown(`**${e.client.nickname}** 进入了 TS 服务器`)
-              : segment.text(`${e.client.nickname} 进入了 TS 服务器`)
-            karin.sendMsg(bot.account.selfId, contact, msg)
-          })
+          bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
         })
       }
     })
     _teamspeak.on("clientdisconnect", (e) => {
+      const current = config()
       if (e.client) {
         if (!disNotifyNameList.includes(e.client.nickname)) {
           logger.info(loggerPluginName + e.client.nickname + "离开ts")
           const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
-          TS.NOTICE_GROUP_NO.forEach((groupNo) => {
+          const msg = segment.text(`${e.client.nickname} 离开了 TS 服务器`)
+          current.NOTICE_GROUP_NO.forEach((groupNo) => {
             const contact = karin.contact("group", groupNo + "")
-            bots.forEach(bot => {
-              const msg = bot.adapter.protocol === "qqbot"
-                ? segment.markdown(`**${e.client!.nickname}** 离开了 TS 服务器`)
-                : segment.text(`${e.client!.nickname} 离开了 TS 服务器`)
-              karin.sendMsg(bot.account.selfId, contact, msg)
-            })
+            bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
           })
         }
       }
     })
     // 监听用户移动频道事件
     _teamspeak.on("clientmoved", (e) => {
+      const current = config()
       if (
-        TS.ENABLE_CHANNEL_MOVE_NOTIFY === "true" &&
+        String(current.ENABLE_CHANNEL_MOVE_NOTIFY) === "true" &&
         e.client &&
         !disNotifyNameList.includes(e.client.nickname)
       ) {
@@ -90,57 +85,51 @@ class ts3 {
             e.channel.name,
         )
         const bots = karin.getBotAll().filter(bot => bot.account.selfId !== "console")
-        TS.NOTICE_GROUP_NO.forEach((groupNo) => {
+        const msg = segment.text(
+          `${e.client.nickname} 移动到了频道 ${e.channel.name}`,
+        )
+        current.NOTICE_GROUP_NO.forEach((groupNo) => {
           const contact = karin.contact("group", groupNo + "")
-          bots.forEach(bot => {
-            const msg = bot.adapter.protocol === "qqbot"
-              ? segment.markdown(
-                  `**${e.client.nickname}** 移动到了频道 **${e.channel.name}**`,
-                )
-              : segment.text(
-                  `${e.client.nickname} 移动到了频道 ${e.channel.name}`,
-                )
-            karin.sendMsg(bot.account.selfId, contact, msg)
-          })
+          bots.forEach(bot => karin.sendMsg(bot.account.selfId, contact, msg))
         })
       }
     })
   }
-  //获取ts3服务器的所有对应频道的人 -- 并组装成文字可直接发
+  //获取ts3服务器的所有对应频道的人 -- 并组装成纯文本可直接发
   getAllChannelList = async () => {
     if (!this.teamspeak) {
       return
     }
     const TS = config()
-    const renderList = [] as string[]
-    renderList.push(`# ${TS.SERVER_NAME || TS.HOST}`)
-    renderList.push(`> 仅展示有人的频道`)
     const channelList = await this.teamspeak.channelList() //所有频道
+    const channelLines: string[][] = []
     let count = 0
-    for (let index = 0; index < channelList.length; index++) {
-      const channel = channelList[index] //频道
+    for (const channel of channelList) {
       const allClient = await channel.getClients() //在当前频道的人
       //排除不显示的人
       const clients = allClient.filter(
         (c) => !disNotifyNameList.includes(c.nickname),
       )
-      count += clients.length
       if (clients.length == 0) continue
-      renderList.push(`---`)
-      renderList.push(`**${channel.name}**`)
-      for (let index = 0; index < clients.length; index++) {
-        const client = clients[index]
+      count += clients.length
+      const lines = [`■ ${channel.name}`]
+      for (const client of clients) {
         const connectTimeSec = moment().diff(
           moment.unix(client.lastconnected),
           "second",
         )
-        let connectTime = `(${Math.floor(connectTimeSec / 60)}:${Math.floor(
+        const connectTime = `(${Math.floor(connectTimeSec / 60)}:${Math.floor(
           connectTimeSec % 60,
         )})`
-        renderList.push(`- ${client.nickname} ${connectTime}`)
+        lines.push(`- ${client.nickname} ${connectTime}`)
       }
+      channelLines.push(lines)
     }
-    renderList.splice(2, 0, `> 当前在线 **${count}** 人`)
+    const renderList = [
+      `【${TS.SERVER_NAME || TS.HOST}】`,
+      `当前在线 ${count} 人（仅展示有人的频道）`,
+    ]
+    channelLines.forEach((lines) => renderList.push("", ...lines))
     return renderList.join("\n")
   }
   //关闭连接
